@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Lenovo/CLionProjects/TA/main.cpp
+iostream
+-
+exception
+-
+string
+-
+fstream
+-
+vector
+-
+algorithm
+-
+sstream
+-
+iomanip
+-
+
