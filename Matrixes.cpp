@@ -9,7 +9,7 @@ int main() {
     reader >> number;
 
     std::vector<std::vector<int>> vec(number, std::vector<int>(2));
-    for (auto& el : vec) {
+    for (auto &el : vec) {
         int a1, a2;
         reader >> a1 >> a2;
         el[0] = a1, el[1] = a2;
@@ -22,7 +22,7 @@ int main() {
             vec2[j][j + i] = INT32_MAX;
             for (int k = j; k < j + i; k++) {
                 vec2[j][j + i] = std::min(vec2[j][j + i],
-                                               vec2[j][k] + vec2[k + 1][j + i] + vec[j][0] * vec[j + i][1] * vec[k][1]);
+                                          vec2[j][k] + vec2[k + 1][j + i] + vec[j][0] * vec[j + i][1] * vec[k][1]);
             }
         }
     }

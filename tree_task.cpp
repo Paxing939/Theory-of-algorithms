@@ -140,7 +140,7 @@ public:
 
 private:
     struct Node {
-        Node()  : height_(0) {}
+        Node() : height_(0) {}
 
         explicit Node(T element) : key_(element), left_(nullptr), right_(nullptr), height_(0), parent_(nullptr) {}
 
@@ -149,7 +149,7 @@ private:
         Node *left_, *right_, *parent_;
     };
 
-    int Depth(Node* node) {
+    int Depth(Node *node) {
         int depth = 0;
         if (node != nullptr) {
             depth = std::max(Depth(node->left_) + 1, Depth(node->right_) + 1);
@@ -183,13 +183,9 @@ private:
     bool CheckVertex(Node *node) {
         long long node_height = node->height_;
         int depth = 0, k_tmp = 0;
-        Node* parent = node;
+        Node *parent = node;
 
         int path = 0;
-
-        if (node->key_ == 2) {
-            //std::cerr << "abracadabra!\n";
-        }
 
         path += node->height_;
         if (path >= k_) {
@@ -279,8 +275,6 @@ private:
         if (node == nullptr) {
             return;
         }
-        writer << node->key_ << '\n';
-//        writer << node->key_ << ", height: " << node->height_ << ", depth: " << node->depth_ << '\n';
         NLRForFile(node->left_);
         NLRForFile(node->right_);
     }

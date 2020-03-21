@@ -9,7 +9,7 @@ int main() {
     reader >> n;
 
     std::vector<int> d(n, 1), a(n);
-    for (auto& el : a) {
+    for (auto &el : a) {
         reader >> el;
     }
 
@@ -37,17 +37,16 @@ int main() {
         if (a[max_ind] % a[i] == 0 && d[max_ind] - d[i] == ind_diff) {
             answer.push_back(i + 1);
             ind_diff++;
-//            std::cout << i + 1 << " ";
         }
     }
 
     std::reverse(answer.begin(), answer.end());
 
-    for (const auto& el : answer) {
+    for (const auto &el : answer) {
         std::cout << el << " ";
     }
-std::cout << '\n';
-    for (const auto& el : d) {
+    std::cout << '\n';
+    for (const auto &el : d) {
         std::cout << el << " ";
     }
 

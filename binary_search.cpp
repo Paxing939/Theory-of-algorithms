@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-int SearchRight(const std::vector<int>& array, int key) {
+int SearchRight(const std::vector<int> &array, int key) {
     int l = 0, r = array.size(), m = 0;
     while (l < r - 1) {
         m = (l + r) / 2;
@@ -14,7 +14,7 @@ int SearchRight(const std::vector<int>& array, int key) {
     return r;
 }
 
-int SearchLeft(const std::vector<int>& array, int key) {
+int SearchLeft(const std::vector<int> &array, int key) {
     int l = 0, r = array.size(), m = 0;
     while (l < r - 1) {
         m = (l + r) / 2;
@@ -27,7 +27,7 @@ int SearchLeft(const std::vector<int>& array, int key) {
     return l;
 }
 
-int LowerBound(const std::vector<int>& numbers, int key) {
+int LowerBound(const std::vector<int> &numbers, int key) {
     int l = 0, r = numbers.size(), k = 0;
     while (l < r) {
         k = (l + r) / 2;
@@ -40,7 +40,7 @@ int LowerBound(const std::vector<int>& numbers, int key) {
     return l;
 }
 
-int UpperBound(const std::vector<int>& numbers, int key) {
+int UpperBound(const std::vector<int> &numbers, int key) {
     int l = 0, r = numbers.size(), k = 0;
     while (l < r) {
         k = (l + r) / 2;
@@ -62,7 +62,7 @@ int main() {
 
     int tmp = 0;
     std::vector<int> numbers(n);
-    for (auto& el : numbers) {
+    for (auto &el : numbers) {
         std::cin >> el;
     }
 

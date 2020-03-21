@@ -17,7 +17,7 @@ int main() {
             if (a[j] == 0) {
                 continue;
             }
-            if (a[i] % a[j] == 0|| a[i] == 0) {
+            if (a[i] % a[j] == 0 || a[i] == 0) {
                 if (dp[j] + 1 > dp[i]) {
                     dp[i] = dp[j] + 1;
                     rec[i] = j;

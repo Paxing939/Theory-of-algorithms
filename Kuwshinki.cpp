@@ -9,7 +9,7 @@ int main() {
     reader >> number;
 
     std::vector<int> vec(number, -1);
-    for (auto& el : vec) {
+    for (auto &el : vec) {
         reader >> el;
     }
 

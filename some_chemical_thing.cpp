@@ -10,8 +10,8 @@ int main() {
 
     std::vector<std::vector<int>> matrix(n, std::vector<int>(n));
     int tmp = 0;
-    for (int i  = 0; i < n; i++) {
-        for (int j  = 0; j < n; j++) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
             reader >> tmp;
             matrix[i][j] = tmp;
         }
