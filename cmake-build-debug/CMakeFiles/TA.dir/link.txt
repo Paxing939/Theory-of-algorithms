@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/TA.dir/main.cpp.o  -o TA 
+/usr/bin/c++  -g   CMakeFiles/TA.dir/microchip.cpp.o  -o TA 

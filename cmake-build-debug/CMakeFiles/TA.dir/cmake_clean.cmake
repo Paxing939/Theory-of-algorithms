@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/TA.dir/main.cpp.o"
+  "CMakeFiles/TA.dir/microchip.cpp.o"
   "TA"
   "TA.pdb"
 )

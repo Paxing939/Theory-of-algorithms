@@ -57,27 +57,27 @@ include CMakeFiles/TA.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/TA.dir/flags.make
 
-CMakeFiles/TA.dir/main.cpp.o: CMakeFiles/TA.dir/flags.make
-CMakeFiles/TA.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TA.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TA.dir/main.cpp.o -c /home/ilya/CLionProjects/Theory-of-algorithms/main.cpp
+CMakeFiles/TA.dir/microchip.cpp.o: CMakeFiles/TA.dir/flags.make
+CMakeFiles/TA.dir/microchip.cpp.o: ../microchip.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TA.dir/microchip.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TA.dir/microchip.cpp.o -c /home/ilya/CLionProjects/Theory-of-algorithms/microchip.cpp
 
-CMakeFiles/TA.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TA.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ilya/CLionProjects/Theory-of-algorithms/main.cpp > CMakeFiles/TA.dir/main.cpp.i
+CMakeFiles/TA.dir/microchip.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TA.dir/microchip.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ilya/CLionProjects/Theory-of-algorithms/microchip.cpp > CMakeFiles/TA.dir/microchip.cpp.i
 
-CMakeFiles/TA.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TA.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ilya/CLionProjects/Theory-of-algorithms/main.cpp -o CMakeFiles/TA.dir/main.cpp.s
+CMakeFiles/TA.dir/microchip.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TA.dir/microchip.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ilya/CLionProjects/Theory-of-algorithms/microchip.cpp -o CMakeFiles/TA.dir/microchip.cpp.s
 
 # Object files for target TA
 TA_OBJECTS = \
-"CMakeFiles/TA.dir/main.cpp.o"
+"CMakeFiles/TA.dir/microchip.cpp.o"
 
 # External object files for target TA
 TA_EXTERNAL_OBJECTS =
 
-TA: CMakeFiles/TA.dir/main.cpp.o
+TA: CMakeFiles/TA.dir/microchip.cpp.o
 TA: CMakeFiles/TA.dir/build.make
 TA: CMakeFiles/TA.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable TA"

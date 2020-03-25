@@ -123,32 +123,32 @@ TA/fast:
 	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/build
 .PHONY : TA/fast
 
-main.o: main.cpp.o
+microchip.o: microchip.cpp.o
 
-.PHONY : main.o
+.PHONY : microchip.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/main.cpp.o
-.PHONY : main.cpp.o
+microchip.cpp.o:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/microchip.cpp.o
+.PHONY : microchip.cpp.o
 
-main.i: main.cpp.i
+microchip.i: microchip.cpp.i
 
-.PHONY : main.i
+.PHONY : microchip.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/main.cpp.i
-.PHONY : main.cpp.i
+microchip.cpp.i:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/microchip.cpp.i
+.PHONY : microchip.cpp.i
 
-main.s: main.cpp.s
+microchip.s: microchip.cpp.s
 
-.PHONY : main.s
+.PHONY : microchip.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/main.cpp.s
-.PHONY : main.cpp.s
+microchip.cpp.s:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/microchip.cpp.s
+.PHONY : microchip.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... TA"
 	@echo "... edit_cache"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... microchip.o"
+	@echo "... microchip.i"
+	@echo "... microchip.s"
 .PHONY : help
 
 
