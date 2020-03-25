@@ -122,32 +122,32 @@ TA/fast:
 	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/build
 .PHONY : TA/fast
 
-main.obj: main.cpp.obj
+Polygon.obj: Polygon.cpp.obj
 
-.PHONY : main.obj
+.PHONY : Polygon.obj
 
 # target to build an object file
-main.cpp.obj:
-	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/main.cpp.obj
-.PHONY : main.cpp.obj
+Polygon.cpp.obj:
+	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/Polygon.cpp.obj
+.PHONY : Polygon.cpp.obj
 
-main.i: main.cpp.i
+Polygon.i: Polygon.cpp.i
 
-.PHONY : main.i
+.PHONY : Polygon.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/main.cpp.i
-.PHONY : main.cpp.i
+Polygon.cpp.i:
+	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/Polygon.cpp.i
+.PHONY : Polygon.cpp.i
 
-main.s: main.cpp.s
+Polygon.s: Polygon.cpp.s
 
-.PHONY : main.s
+.PHONY : Polygon.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/main.cpp.s
-.PHONY : main.cpp.s
+Polygon.cpp.s:
+	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/Polygon.cpp.s
+.PHONY : Polygon.cpp.s
 
 # Help Target
 help:
@@ -158,9 +158,9 @@ help:
 	@echo ... TA
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... main.obj
-	@echo ... main.i
-	@echo ... main.s
+	@echo ... Polygon.obj
+	@echo ... Polygon.i
+	@echo ... Polygon.s
 .PHONY : help
 
 

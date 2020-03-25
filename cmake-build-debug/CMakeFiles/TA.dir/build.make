@@ -56,27 +56,27 @@ include CMakeFiles/TA.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/TA.dir/flags.make
 
-CMakeFiles/TA.dir/main.cpp.obj: CMakeFiles/TA.dir/flags.make
-CMakeFiles/TA.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Lenovo\CLionProjects\TA\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TA.dir/main.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\TA.dir\main.cpp.obj -c C:\Users\Lenovo\CLionProjects\TA\main.cpp
+CMakeFiles/TA.dir/Polygon.cpp.obj: CMakeFiles/TA.dir/flags.make
+CMakeFiles/TA.dir/Polygon.cpp.obj: ../Polygon.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Lenovo\CLionProjects\TA\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TA.dir/Polygon.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\TA.dir\Polygon.cpp.obj -c C:\Users\Lenovo\CLionProjects\TA\Polygon.cpp
 
-CMakeFiles/TA.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TA.dir/main.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Lenovo\CLionProjects\TA\main.cpp > CMakeFiles\TA.dir\main.cpp.i
+CMakeFiles/TA.dir/Polygon.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TA.dir/Polygon.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Lenovo\CLionProjects\TA\Polygon.cpp > CMakeFiles\TA.dir\Polygon.cpp.i
 
-CMakeFiles/TA.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TA.dir/main.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Lenovo\CLionProjects\TA\main.cpp -o CMakeFiles\TA.dir\main.cpp.s
+CMakeFiles/TA.dir/Polygon.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TA.dir/Polygon.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Lenovo\CLionProjects\TA\Polygon.cpp -o CMakeFiles\TA.dir\Polygon.cpp.s
 
 # Object files for target TA
 TA_OBJECTS = \
-"CMakeFiles/TA.dir/main.cpp.obj"
+"CMakeFiles/TA.dir/Polygon.cpp.obj"
 
 # External object files for target TA
 TA_EXTERNAL_OBJECTS =
 
-TA.exe: CMakeFiles/TA.dir/main.cpp.obj
+TA.exe: CMakeFiles/TA.dir/Polygon.cpp.obj
 TA.exe: CMakeFiles/TA.dir/build.make
 TA.exe: CMakeFiles/TA.dir/linklibs.rsp
 TA.exe: CMakeFiles/TA.dir/objects1.rsp

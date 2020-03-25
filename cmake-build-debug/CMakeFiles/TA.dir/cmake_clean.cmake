@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/TA.dir/main.cpp.obj"
+  "CMakeFiles/TA.dir/Polygon.cpp.obj"
   "TA.exe"
   "TA.exe.manifest"
   "TA.pdb"

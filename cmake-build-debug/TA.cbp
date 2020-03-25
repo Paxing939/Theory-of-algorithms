@@ -80,7 +80,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/Lenovo/CLionProjects/TA/main.cpp">
+		<Unit filename="C:/Users/Lenovo/CLionProjects/TA/Polygon.cpp">
 			<Option target="TA"/>
 		</Unit>
 		<Unit filename="C:/Users/Lenovo/CLionProjects/TA/CMakeLists.txt">
