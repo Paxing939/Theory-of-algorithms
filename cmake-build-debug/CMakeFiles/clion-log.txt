@@ -1,4 +1,7 @@
 "C:\Program Files\JetBrains\CLion 2019.2.5\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\Lenovo\CLionProjects\TA
--- Configuring done
--- Generating done
--- Build files have been written to: C:/Users/Lenovo/CLionProjects/TA/cmake-build-debug
+CMake Error at CMakeLists.txt:6:
+  Parse error.  Expected a command name, got unquoted argument with text
+  "<<<<<<<".
+
+
+-- Configuring incomplete, errors occurred!

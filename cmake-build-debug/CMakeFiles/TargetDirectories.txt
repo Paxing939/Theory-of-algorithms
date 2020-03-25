@@ -1,3 +1,0 @@
-C:/Users/Lenovo/CLionProjects/TA/cmake-build-debug/CMakeFiles/TA.dir
-C:/Users/Lenovo/CLionProjects/TA/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Lenovo/CLionProjects/TA/cmake-build-debug/CMakeFiles/rebuild_cache.dir
