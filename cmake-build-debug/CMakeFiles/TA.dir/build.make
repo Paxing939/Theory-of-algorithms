@@ -56,27 +56,27 @@ include CMakeFiles/TA.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/TA.dir/flags.make
 
-CMakeFiles/TA.dir/microchip.cpp.obj: CMakeFiles/TA.dir/flags.make
-CMakeFiles/TA.dir/microchip.cpp.obj: ../microchip.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Lenovo\CLionProjects\TA\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TA.dir/microchip.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\TA.dir\microchip.cpp.obj -c C:\Users\Lenovo\CLionProjects\TA\microchip.cpp
+CMakeFiles/TA.dir/roads_easy.cpp.obj: CMakeFiles/TA.dir/flags.make
+CMakeFiles/TA.dir/roads_easy.cpp.obj: ../roads_easy.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Lenovo\CLionProjects\TA\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TA.dir/roads_easy.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\TA.dir\roads_easy.cpp.obj -c C:\Users\Lenovo\CLionProjects\TA\roads_easy.cpp
 
-CMakeFiles/TA.dir/microchip.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TA.dir/microchip.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Lenovo\CLionProjects\TA\microchip.cpp > CMakeFiles\TA.dir\microchip.cpp.i
+CMakeFiles/TA.dir/roads_easy.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TA.dir/roads_easy.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Lenovo\CLionProjects\TA\roads_easy.cpp > CMakeFiles\TA.dir\roads_easy.cpp.i
 
-CMakeFiles/TA.dir/microchip.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TA.dir/microchip.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Lenovo\CLionProjects\TA\microchip.cpp -o CMakeFiles\TA.dir\microchip.cpp.s
+CMakeFiles/TA.dir/roads_easy.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TA.dir/roads_easy.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Lenovo\CLionProjects\TA\roads_easy.cpp -o CMakeFiles\TA.dir\roads_easy.cpp.s
 
 # Object files for target TA
 TA_OBJECTS = \
-"CMakeFiles/TA.dir/microchip.cpp.obj"
+"CMakeFiles/TA.dir/roads_easy.cpp.obj"
 
 # External object files for target TA
 TA_EXTERNAL_OBJECTS =
 
-TA.exe: CMakeFiles/TA.dir/microchip.cpp.obj
+TA.exe: CMakeFiles/TA.dir/roads_easy.cpp.obj
 TA.exe: CMakeFiles/TA.dir/build.make
 TA.exe: CMakeFiles/TA.dir/linklibs.rsp
 TA.exe: CMakeFiles/TA.dir/objects1.rsp
