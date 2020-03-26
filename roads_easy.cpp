@@ -36,18 +36,16 @@ public:
     return connectivity_components_;
   }
 
-  void DeleteEdge(int edge) {
-    if (connectedness) {
-
-    }
+  int getConnectivityComponents() const {
+    return connectivity_components_;
   }
 
   [[nodiscard]] bool isConnectedness() const {
-    return connectedness;
+    return connectedness_;
   }
 
 private:
-  bool connectedness;
+  bool connectedness_;
   int connectivity_components_;
   std::vector<std::pair<int, int>> dsu_;
 };
@@ -60,20 +58,41 @@ int main() {
   DSU dsu(n);
 
   int x, y;
+  std::vector<std::pair<std::pair<int, int>, bool>> edges(m);
   std::ofstream writer("output.txt");
-  for(int i = 0; i < q; ++i) {
+  for(int i = 0; i < m; ++i) {
     reader >> x >> y;
-    dsu.Union(x, y);
+    edges[i].first.first = x, edges[i].first.second = y, edges[i].second = true;
   }
 
   int tmp;
-  for (int i = 0; i < m; ++i) {
+  std::vector<int> deleted(q);
+  for (int i = 0; i < q; ++i) {
     reader >> tmp;
-    dsu.DeleteEdge(tmp);
-    if (!dsu.isConnectedness()) {
-      writer << 0;
-    } else {
+    deleted[i] = tmp - 1;
+    edges[tmp - 1].second = false;
+  }
+
+  for (int i = 0; i < m; ++i) {
+    if (edges[i].second) {
+      dsu.Union(edges[i].first.first, edges[i].first.second);
+    }
+  }
+
+
+  for (int i = q - 1; i < q; ++i) {
+    dsu.Union(edges[i].first.first, edges[i].first.second);
+
+
+
+
+    if (!edges[i].second) {
+      dsu.Union(edges[i].first.first, edges[i].first.second);
+    }
+    if (dsu.getConnectivityComponents() == 1) {
       writer << 1;
+    } else {
+      writer << 0;
     }
   }
 
