@@ -11,10 +11,37 @@
 				<Option working_dir="C:/Users/Lenovo/CLionProjects/TA/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
+<<<<<<< HEAD
 					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Lenovo/CLionProjects/TA/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
 					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Lenovo/CLionProjects/TA/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Lenovo/CLionProjects/TA/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Lenovo/CLionProjects/TA/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+=======
+					<Build command="/usr/bin/make -j12 -f &quot;/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+>>>>>>> 2c1801f413f28e3e3192ac8d6acdfb95d5d564a4
 				</MakeCommands>
 			</Target>
 			<Target title="TA">
@@ -59,6 +86,7 @@
 					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Lenovo/CLionProjects/TA/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+<<<<<<< HEAD
 			<Target title="edit_cache">
 				<Option working_dir="C:/Users/Lenovo/CLionProjects/TA/cmake-build-debug"/>
 				<Option type="4"/>
@@ -81,6 +109,10 @@
 			</Target>
 		</Build>
 		<Unit filename="C:/Users/Lenovo/CLionProjects/TA/microchip.cpp">
+=======
+		</Build>
+		<Unit filename="/home/ilya/CLionProjects/Theory-of-algorithms/roads_easy.cpp">
+>>>>>>> 2c1801f413f28e3e3192ac8d6acdfb95d5d564a4
 			<Option target="TA"/>
 		</Unit>
 		<Unit filename="C:/Users/Lenovo/CLionProjects/TA/CMakeLists.txt">
