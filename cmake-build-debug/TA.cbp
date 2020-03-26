@@ -84,7 +84,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/ilya/CLionProjects/Theory-of-algorithms/roads.cpp">
+		<Unit filename="/home/ilya/CLionProjects/Theory-of-algorithms/roads_easy.cpp">
 			<Option target="TA"/>
 		</Unit>
 		<Unit filename="/home/ilya/CLionProjects/Theory-of-algorithms/CMakeLists.txt">

@@ -123,32 +123,32 @@ TA/fast:
 	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/build
 .PHONY : TA/fast
 
-roads.o: roads.cpp.o
+roads_easy.o: roads_easy.cpp.o
 
-.PHONY : roads.o
+.PHONY : roads_easy.o
 
 # target to build an object file
-roads.cpp.o:
-	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/roads.cpp.o
-.PHONY : roads.cpp.o
+roads_easy.cpp.o:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/roads_easy.cpp.o
+.PHONY : roads_easy.cpp.o
 
-roads.i: roads.cpp.i
+roads_easy.i: roads_easy.cpp.i
 
-.PHONY : roads.i
+.PHONY : roads_easy.i
 
 # target to preprocess a source file
-roads.cpp.i:
-	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/roads.cpp.i
-.PHONY : roads.cpp.i
+roads_easy.cpp.i:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/roads_easy.cpp.i
+.PHONY : roads_easy.cpp.i
 
-roads.s: roads.cpp.s
+roads_easy.s: roads_easy.cpp.s
 
-.PHONY : roads.s
+.PHONY : roads_easy.s
 
 # target to generate assembly for a file
-roads.cpp.s:
-	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/roads.cpp.s
-.PHONY : roads.cpp.s
+roads_easy.cpp.s:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/roads_easy.cpp.s
+.PHONY : roads_easy.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... TA"
 	@echo "... edit_cache"
-	@echo "... roads.o"
-	@echo "... roads.i"
-	@echo "... roads.s"
+	@echo "... roads_easy.o"
+	@echo "... roads_easy.i"
+	@echo "... roads_easy.s"
 .PHONY : help
 
 

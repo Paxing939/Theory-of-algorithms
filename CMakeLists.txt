@@ -3,4 +3,4 @@ project(TA)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(TA roads.cpp)
+add_executable(TA roads_easy.cpp)
