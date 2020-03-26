@@ -29,6 +29,7 @@ public:
 
         std::vector<std::vector<int>> dp(n, std::vector<int>(n, 0));
 
+        
         for (const auto& point : points) {
             bool up = false, right = false;
             if (point.x > length / 2) {
