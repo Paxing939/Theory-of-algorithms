@@ -123,73 +123,32 @@ TA/fast:
 	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/build
 .PHONY : TA/fast
 
-<<<<<<< HEAD
-Polygon.obj: Polygon.cpp.obj
+roads.o: roads.cpp.o
 
-.PHONY : Polygon.obj
-
-# target to build an object file
-Polygon.cpp.obj:
-	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/Polygon.cpp.obj
-.PHONY : Polygon.cpp.obj
-
-Polygon.i: Polygon.cpp.i
-
-.PHONY : Polygon.i
-
-# target to preprocess a source file
-Polygon.cpp.i:
-	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/Polygon.cpp.i
-.PHONY : Polygon.cpp.i
-
-Polygon.s: Polygon.cpp.s
-
-.PHONY : Polygon.s
-
-# target to generate assembly for a file
-Polygon.cpp.s:
-	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/Polygon.cpp.s
-.PHONY : Polygon.cpp.s
-
-# Help Target
-help:
-	@echo The following are some of the valid targets for this Makefile:
-	@echo ... all (the default if no target is provided)
-	@echo ... clean
-	@echo ... depend
-	@echo ... TA
-	@echo ... edit_cache
-	@echo ... rebuild_cache
-	@echo ... Polygon.obj
-	@echo ... Polygon.i
-	@echo ... Polygon.s
-=======
-microchip.o: microchip.cpp.o
-
-.PHONY : microchip.o
+.PHONY : roads.o
 
 # target to build an object file
-microchip.cpp.o:
-	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/microchip.cpp.o
-.PHONY : microchip.cpp.o
+roads.cpp.o:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/roads.cpp.o
+.PHONY : roads.cpp.o
 
-microchip.i: microchip.cpp.i
+roads.i: roads.cpp.i
 
-.PHONY : microchip.i
+.PHONY : roads.i
 
 # target to preprocess a source file
-microchip.cpp.i:
-	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/microchip.cpp.i
-.PHONY : microchip.cpp.i
+roads.cpp.i:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/roads.cpp.i
+.PHONY : roads.cpp.i
 
-microchip.s: microchip.cpp.s
+roads.s: roads.cpp.s
 
-.PHONY : microchip.s
+.PHONY : roads.s
 
 # target to generate assembly for a file
-microchip.cpp.s:
-	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/microchip.cpp.s
-.PHONY : microchip.cpp.s
+roads.cpp.s:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/roads.cpp.s
+.PHONY : roads.cpp.s
 
 # Help Target
 help:
@@ -200,10 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... TA"
 	@echo "... edit_cache"
-	@echo "... microchip.o"
-	@echo "... microchip.i"
-	@echo "... microchip.s"
->>>>>>> 5474a2b1ff4845bdc470072d989550145c32561c
+	@echo "... roads.o"
+	@echo "... roads.i"
+	@echo "... roads.s"
 .PHONY : help
 
 

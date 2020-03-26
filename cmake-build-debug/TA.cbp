@@ -84,11 +84,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-<<<<<<< HEAD
-		<Unit filename="C:/Users/Lenovo/CLionProjects/TA/Polygon.cpp">
-=======
-		<Unit filename="/home/ilya/CLionProjects/Theory-of-algorithms/microchip.cpp">
->>>>>>> 5474a2b1ff4845bdc470072d989550145c32561c
+		<Unit filename="/home/ilya/CLionProjects/Theory-of-algorithms/roads.cpp">
 			<Option target="TA"/>
 		</Unit>
 		<Unit filename="/home/ilya/CLionProjects/Theory-of-algorithms/CMakeLists.txt">
