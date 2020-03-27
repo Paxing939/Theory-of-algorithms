@@ -122,32 +122,32 @@ TA/fast:
 	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/build
 .PHONY : TA/fast
 
-roads_easy.obj: roads_easy.cpp.obj
+microchip.obj: microchip.cpp.obj
 
-.PHONY : roads_easy.obj
+.PHONY : microchip.obj
 
 # target to build an object file
-roads_easy.cpp.obj:
-	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/roads_easy.cpp.obj
-.PHONY : roads_easy.cpp.obj
+microchip.cpp.obj:
+	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/microchip.cpp.obj
+.PHONY : microchip.cpp.obj
 
-roads_easy.i: roads_easy.cpp.i
+microchip.i: microchip.cpp.i
 
-.PHONY : roads_easy.i
+.PHONY : microchip.i
 
 # target to preprocess a source file
-roads_easy.cpp.i:
-	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/roads_easy.cpp.i
-.PHONY : roads_easy.cpp.i
+microchip.cpp.i:
+	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/microchip.cpp.i
+.PHONY : microchip.cpp.i
 
-roads_easy.s: roads_easy.cpp.s
+microchip.s: microchip.cpp.s
 
-.PHONY : roads_easy.s
+.PHONY : microchip.s
 
 # target to generate assembly for a file
-roads_easy.cpp.s:
-	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/roads_easy.cpp.s
-.PHONY : roads_easy.cpp.s
+microchip.cpp.s:
+	$(MAKE) -f CMakeFiles\TA.dir\build.make CMakeFiles/TA.dir/microchip.cpp.s
+.PHONY : microchip.cpp.s
 
 # Help Target
 help:
@@ -158,9 +158,9 @@ help:
 	@echo ... TA
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... roads_easy.obj
-	@echo ... roads_easy.i
-	@echo ... roads_easy.s
+	@echo ... microchip.obj
+	@echo ... microchip.i
+	@echo ... microchip.s
 .PHONY : help
 
 

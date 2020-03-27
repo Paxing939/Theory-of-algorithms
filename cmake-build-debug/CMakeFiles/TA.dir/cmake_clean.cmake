@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/TA.dir/roads_easy.cpp.obj"
+  "CMakeFiles/TA.dir/microchip.cpp.obj"
   "TA.exe"
   "TA.exe.manifest"
   "TA.pdb"
