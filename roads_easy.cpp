@@ -82,25 +82,13 @@ int main() {
   }
 
   std::vector<int> result(q);
-  int pok = 0;
   for (int i = q - 1; i >= 0; --i) {
-    dsu.Union(edges[deleted[i]].first.first, edges[deleted[i]].first.second);
-
     if (dsu.getConnectivityComponents() == 1) {
-//      if (q == 1) {
-//        break;
-//      }
-//
-//      result[i] = 0;
-      pok = i - 1;
-      break;
+      result[i] = 1;
     } else {
       result[i] = 0;
     }
-  }
-
-  for (int i = pok; i >= 0; --i) {
-    result[i] = 1;
+    dsu.Union(edges[deleted[i]].first.first, edges[deleted[i]].first.second);
   }
 
   for (int i = 0; i < q; ++i) {
