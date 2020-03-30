@@ -1,17 +1,16 @@
 #include <utility>
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <ctime>
 
-typedef struct item *pitem;
+typedef struct element *pelement;
 
-struct item {
-  int prior, value, cnt;
-  bool rev;
-  pitem l, r;
+struct element {
+  int priority, value, key;
+  pelement l, r;
 
-  item(int value, int prior) : prior(prior), value(value), cnt(-1), rev(false), l(nullptr), r(nullptr) {}
+  element(int value, int priority) : priority(priority), value(value), key(-1), l(nullptr),
+                                                 r(nullptr) {}
 };
 
 class Treap {
@@ -19,184 +18,141 @@ public:
 
   Treap(int n, int q) : n_(n), q_(q) {
     srand(time(0));
-    tree_ = build(0, n);
-    std::cerr << "\n\n";
-    requests.reserve(q);
+    tree_ = BuildTreap(0, n);
   }
 
-  void ProcessRequests() {
-
-    std::vector<std::vector<int>> queries = {
-        {2, 4},
-        {3, 5},
-        {1, 3}
-    };
-
-    output(tree_);
-    std::cerr << '\n';
-    for (auto &query : queries) {
-
-      pitem left, right;
-      split(tree_, left, right, query[1]);
-
-      pitem left_left, left_right;
-      split(left, left_left, left_right, query[0] - 1);
-
-      pitem tmp;
-//      output(left_left);
-//      std::cerr << "\n";
-//      output(left_right);
-//      std::cerr << "\n";
-//      output(right);
-//      std::cerr << "\n";
-
-      merge(tmp, left_right, left_left);
-
-      merge(tree_, tmp, right);
-
-    output(tree_);
-    std::cerr << "\n";
-    }
-  }
-  
-  void output(pitem t) {
-    if (!t) return;
-
-    output(t->l);
-    std::cerr << t->value;
-    output(t->r);
-  }
-
-  void ReadRequests(std::istream &reader) {
+  void ProcessRequests(std::istream &reader) {
     int value1, value2;
+    pelement l, r, ll, lr, tmp;
     for (int i = 0; i < q_; ++i) {
       reader >> value1 >> value2;
-      requests.emplace_back(value1, value2);
+      Split(tree_, l, r, value2, 0);
+      Split(l, ll, lr, value1 - 1, 0);
+      Merge(lr, ll, tmp);
+      Merge(tmp, r, tree_);
     }
   }
 
-  void PrintTree(std::ostream &out) const {
+  void PrintTree(std::ostream &out) {
     PrintTree(out, tree_);
   }
 
-  friend std::ostream &operator<<(std::ostream &out, const pitem &it);
+  friend std::ostream &operator<<(std::ostream &out, pelement &it);
 
 private:
 
-  void PrintTree(std::ostream &out, pitem tree) const {
-    if (!tree) return;
+  void PrintTree(std::ostream &out, pelement& tree) {
+    if (!tree) {
+      return;
+    }
     PrintTree(out, tree->l);
-    out << tree->value;
+    out << tree->value << " ";
     PrintTree(out, tree->r);
   }
 
-  void merge(pitem &tree, pitem left, pitem right) {
-    if (!left || !right) {
-      if (left != nullptr) {
-        tree = left;
-      } else {
-        tree = right;
-      }
-    } else {
-      if (left->prior > right->prior) {
-        merge(left->r, left->r, right);
-        tree = left;
-      } else {
-        merge(right->l, left, right->l);
-        tree = right;
-      }
-    }
-
-    upd_cnt(tree);
-  }
-
-  void split(pitem src_tree, pitem &left, pitem &right, int key, int add = 0) {
+  static void Split(pelement src_tree, pelement &l, pelement &r, int key, int add) {
     if (src_tree == nullptr) {
-      left = nullptr;
-      right = nullptr;
+      l = nullptr, r = nullptr;
       return;
     }
 
-    int cur_key = add + cnt(src_tree->l);
-
-    if (key <= cur_key) {
-      split(src_tree->l, left, src_tree->l, key, add);
-      right = src_tree;
+    if (key <= add + CountKey(src_tree->l)) {
+      Split(src_tree->l, l, src_tree->l, key, add);
+      r = src_tree;
     } else {
-      split(src_tree->r, src_tree->r, right, key, add + 1 + cnt(src_tree->l));
-      left = src_tree;
+      Split(src_tree->r, src_tree->r, r, key, add + 1 + CountKey(src_tree->l));
+      l = src_tree;
     }
 
-    upd_cnt(src_tree);
+    UpdateKey(src_tree);
   }
 
-  void heapify(pitem t) {
+  static void Merge(pelement &l, pelement &r, pelement &tree) {
+    if (l == nullptr || r == nullptr) {
+      if (l != nullptr) {
+        tree = l;
+      } else {
+        tree = r;
+      }
+    } else {
+      if (l->priority > r->priority) {
+        Merge(l->r, r, l->r);
+        tree = l;
+      } else {
+        Merge(l, r->l, r->l);
+        tree = r;
+      }
+    }
+
+    UpdateKey(tree);
+  }
+
+  static void Heap(pelement &t) {
     if (!t) {
       return;
     }
 
-    pitem max = t;
+    pelement max = t;
 
-    if (t->l != nullptr && t->l->prior > max->prior) {
+    if (t->l != nullptr && t->l->priority > max->priority) {
       max = t->l;
     }
 
-    if (t->r != nullptr && t->r->prior > max->prior) {
+    if (t->r != nullptr && t->r->priority > max->priority) {
       max = t->r;
     }
 
     if (max != t) {
-      std::swap(t->prior, max->prior);
-      heapify(max);
+      std::swap(t->priority, max->priority);
+      Heap(max);
     }
   }
 
-  pitem build(int value, int n) {
+  static pelement BuildTreap(int value, int n) {
     if (n == 0) {
       return nullptr;
     }
 
     int mid = n / 2;
-    auto tree = new item(value + mid + 1, rand());
+    auto tree = new element(value + mid + 1, rand());
 
-    tree->l = build(value, mid);
+    tree->l = BuildTreap(value, mid);
 
-    tree->r = build(value + mid + 1, n - mid - 1);
+    tree->r = BuildTreap(value + mid + 1, n - mid - 1);
 
-    heapify(tree);
+    Heap(tree);
 
-    upd_cnt(tree->l);
-    upd_cnt(tree->r);
-    upd_cnt(tree);
+    UpdateKey(tree->l);
+    UpdateKey(tree->r);
+    UpdateKey(tree);
 
     return tree;
   }
 
-  int cnt(pitem it) {
-    if (it != nullptr) {
-      return it->cnt;
+  static void UpdateKey(pelement &tree) {
+    if (tree != nullptr) {
+      tree->key = CountKey(tree->l) + CountKey(tree->r) + 1;
+    }
+  }
+
+  static int CountKey(pelement &pel) {
+    if (pel != nullptr) {
+      return pel->key;
     } else {
       return 0;
     }
   }
 
-  void upd_cnt(pitem tree) {
-    if (tree != nullptr) {
-      tree->cnt = cnt(tree->l) + cnt(tree->r) + 1;
-    }
-  }
-
-  std::vector<std::pair<int, int>> requests;
   int n_, q_;
-  pitem tree_;
+  pelement tree_;
 };
 
-std::ostream &operator<<(std::ostream &out, const Treap &treap) {
+std::ostream &operator<<(std::ostream &out, Treap &treap) {
   treap.PrintTree(out);
   return out;
 }
 
-std::ostream &operator<<(std::ostream &out, const pitem &item) {
+std::ostream &operator<<(std::ostream &out, pelement &item) {
   out << item->value;
   return out;
 }
@@ -209,11 +165,7 @@ int main() {
 
   Treap treap(n, q);
 
-//  std::cerr << treap;
-
-  treap.ReadRequests(reader);
-
-  treap.ProcessRequests();
+  treap.ProcessRequests(reader);
 
   writer << treap;
   return 0;
