@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ilya/CLionProjects/Theory-of-algorithms/archive.cpp" "/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/CMakeFiles/TA.dir/archive.cpp.o"
+  "C:/Users/Lenovo/CLionProjects/TA/archive.cpp" "C:/Users/Lenovo/CLionProjects/TA/cmake-build-debug/CMakeFiles/TA.dir/archive.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

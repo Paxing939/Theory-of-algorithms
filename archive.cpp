@@ -4,37 +4,67 @@
 #include <vector>
 #include <ctime>
 
+typedef struct item *pitem;
+
+struct item {
+  int prior, value, cnt;
+  bool rev;
+  pitem l, r;
+
+  item(int value, int prior) : prior(prior), value(value), cnt(-1), rev(false), l(nullptr), r(nullptr) {}
+};
+
 class Treap {
 public:
 
-  struct item {
-    int priority, value, cnt;
-    bool rev;
-    item *left, *right;
-
-    item(int value, int prior) : priority(prior), value(value), cnt(-1), rev(false), left(nullptr), right(nullptr) {}
-  };
-
   Treap(int n, int q) : n_(n), q_(q) {
     srand(time(0));
-    tree_ = BuildRecursion(n, n);
+    tree_ = build(0, n);
     std::cerr << "\n\n";
     requests.reserve(q);
   }
 
   void ProcessRequests() {
-    for (auto &query : requests) {
-      item *left = nullptr, *right = nullptr;
-      split(tree_, left, right, query.second);
 
-      item *left_left = nullptr, *left_right = nullptr;
-      split(left, left_left, left_right, query.first - 1);
+    std::vector<std::vector<int>> queries = {
+        {2, 4},
+        {3, 5},
+        {1, 3}
+    };
 
-      item *tmp = nullptr;
+    output(tree_);
+    std::cerr << '\n';
+    for (auto &query : queries) {
+
+      pitem left, right;
+      split(tree_, left, right, query[1]);
+
+      pitem left_left, left_right;
+      split(left, left_left, left_right, query[0] - 1);
+
+      pitem tmp;
+//      output(left_left);
+//      std::cerr << "\n";
+//      output(left_right);
+//      std::cerr << "\n";
+//      output(right);
+//      std::cerr << "\n";
+
       merge(tmp, left_right, left_left);
 
       merge(tree_, tmp, right);
+
+    output(tree_);
+    std::cerr << "\n";
     }
+  }
+  
+  void output(pitem t) {
+    if (!t) return;
+
+    output(t->l);
+    std::cerr << t->value;
+    output(t->r);
   }
 
   void ReadRequests(std::istream &reader) {
@@ -49,40 +79,18 @@ public:
     PrintTree(out, tree_);
   }
 
-  friend std::ostream &operator<<(std::ostream &out, const Treap::item &it);
+  friend std::ostream &operator<<(std::ostream &out, const pitem &it);
 
 private:
 
-  void PrintTree(std::ostream &out, item *tree) const {
+  void PrintTree(std::ostream &out, pitem tree) const {
     if (!tree) return;
-    PrintTree(out, tree->left);
+    PrintTree(out, tree->l);
     out << tree->value;
-    PrintTree(out, tree->right);
+    PrintTree(out, tree->r);
   }
 
-  item *BuildRecursion(int value, int n) {
-    if (n == 0) {
-      return nullptr;
-    }
-
-    int mid = n / 2;
-
-    item *current_tree = new item(mid + 1, rand());
-
-    current_tree->left = BuildRecursion(value, mid);
-
-    current_tree->right = BuildRecursion(value + mid + 1,  n - mid - 1);
-
-    heapify(current_tree);
-
-    UpdateCount(current_tree->left);
-    UpdateCount(current_tree->right);
-    UpdateCount(current_tree);
-
-    return current_tree;
-  }
-
-  void merge(item *tree, item *left, item *right) {
+  void merge(pitem &tree, pitem left, pitem right) {
     if (!left || !right) {
       if (left != nullptr) {
         tree = left;
@@ -90,73 +98,97 @@ private:
         tree = right;
       }
     } else {
-      if (left->priority > right->priority) {
-        merge(left->right, left->right, right), tree = left;
+      if (left->prior > right->prior) {
+        merge(left->r, left->r, right);
+        tree = left;
       } else {
-        merge(right->left, left, right->left), tree = right;
+        merge(right->l, left, right->l);
+        tree = right;
       }
     }
 
-    UpdateCount(tree);
+    upd_cnt(tree);
   }
 
-  void split(item *src_tree, item *left, item *right, int key, int add = 0) {
+  void split(pitem src_tree, pitem &left, pitem &right, int key, int add = 0) {
     if (src_tree == nullptr) {
+      left = nullptr;
+      right = nullptr;
       return;
     }
 
-    int cur_key = add + Count(src_tree->left);
+    int cur_key = add + cnt(src_tree->l);
 
     if (key <= cur_key) {
-      split(src_tree->left, left, src_tree->left, key, add);
+      split(src_tree->l, left, src_tree->l, key, add);
       right = src_tree;
     } else {
-      split(src_tree->right, src_tree->right, right, key, add + 1 + Count(src_tree->left));
+      split(src_tree->r, src_tree->r, right, key, add + 1 + cnt(src_tree->l));
       left = src_tree;
     }
 
-    UpdateCount(src_tree);
+    upd_cnt(src_tree);
   }
 
-
-  void heapify(item *t) {
+  void heapify(pitem t) {
     if (!t) {
       return;
     }
 
-    item *max = t;
+    pitem max = t;
 
-    if (t->left != nullptr && t->left->priority > max->priority) {
-      max = t->left;
+    if (t->l != nullptr && t->l->prior > max->prior) {
+      max = t->l;
     }
 
-    if (t->right != nullptr && t->right->priority > max->priority) {
-      max = t->right;
+    if (t->r != nullptr && t->r->prior > max->prior) {
+      max = t->r;
     }
 
     if (max != t) {
-      std::swap(t->priority, max->priority);
+      std::swap(t->prior, max->prior);
       heapify(max);
     }
   }
 
-  int Count(item *current_tree) {
-    if (current_tree != nullptr) {
-      return current_tree->cnt;
+  pitem build(int value, int n) {
+    if (n == 0) {
+      return nullptr;
+    }
+
+    int mid = n / 2;
+    auto tree = new item(value + mid + 1, rand());
+
+    tree->l = build(value, mid);
+
+    tree->r = build(value + mid + 1, n - mid - 1);
+
+    heapify(tree);
+
+    upd_cnt(tree->l);
+    upd_cnt(tree->r);
+    upd_cnt(tree);
+
+    return tree;
+  }
+
+  int cnt(pitem it) {
+    if (it != nullptr) {
+      return it->cnt;
     } else {
       return 0;
     }
   }
 
-  void UpdateCount(item *current_tree) {
-    if (current_tree != nullptr) {
-      current_tree->cnt = Count(current_tree->left) + Count(current_tree->right) + 1;
+  void upd_cnt(pitem tree) {
+    if (tree != nullptr) {
+      tree->cnt = cnt(tree->l) + cnt(tree->r) + 1;
     }
   }
 
   std::vector<std::pair<int, int>> requests;
   int n_, q_;
-  item *tree_;
+  pitem tree_;
 };
 
 std::ostream &operator<<(std::ostream &out, const Treap &treap) {
@@ -164,8 +196,8 @@ std::ostream &operator<<(std::ostream &out, const Treap &treap) {
   return out;
 }
 
-std::ostream &operator<<(std::ostream &out, const Treap::item &it) {
-  out << it.value;
+std::ostream &operator<<(std::ostream &out, const pitem &item) {
+  out << item->value;
   return out;
 }
 
@@ -177,7 +209,7 @@ int main() {
 
   Treap treap(n, q);
 
-  std::cerr << treap;
+//  std::cerr << treap;
 
   treap.ReadRequests(reader);
 
