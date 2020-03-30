@@ -123,32 +123,59 @@ TA/fast:
 	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/build
 .PHONY : TA/fast
 
-roads_easy.o: roads_easy.cpp.o
+archive.o: archive.cpp.o
 
-.PHONY : roads_easy.o
+.PHONY : archive.o
 
 # target to build an object file
-roads_easy.cpp.o:
-	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/roads_easy.cpp.o
-.PHONY : roads_easy.cpp.o
+archive.cpp.o:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/archive.cpp.o
+.PHONY : archive.cpp.o
 
-roads_easy.i: roads_easy.cpp.i
+archive.i: archive.cpp.i
 
-.PHONY : roads_easy.i
+.PHONY : archive.i
 
 # target to preprocess a source file
-roads_easy.cpp.i:
-	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/roads_easy.cpp.i
-.PHONY : roads_easy.cpp.i
+archive.cpp.i:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/archive.cpp.i
+.PHONY : archive.cpp.i
 
-roads_easy.s: roads_easy.cpp.s
+archive.s: archive.cpp.s
 
-.PHONY : roads_easy.s
+.PHONY : archive.s
 
 # target to generate assembly for a file
-roads_easy.cpp.s:
-	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/roads_easy.cpp.s
-.PHONY : roads_easy.cpp.s
+archive.cpp.s:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/archive.cpp.s
+.PHONY : archive.cpp.s
+
+microchip.o: microchip.cpp.o
+
+.PHONY : microchip.o
+
+# target to build an object file
+microchip.cpp.o:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/microchip.cpp.o
+.PHONY : microchip.cpp.o
+
+microchip.i: microchip.cpp.i
+
+.PHONY : microchip.i
+
+# target to preprocess a source file
+microchip.cpp.i:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/microchip.cpp.i
+.PHONY : microchip.cpp.i
+
+microchip.s: microchip.cpp.s
+
+.PHONY : microchip.s
+
+# target to generate assembly for a file
+microchip.cpp.s:
+	$(MAKE) -f CMakeFiles/TA.dir/build.make CMakeFiles/TA.dir/microchip.cpp.s
+.PHONY : microchip.cpp.s
 
 # Help Target
 help:
@@ -159,9 +186,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... TA"
-	@echo "... roads_easy.o"
-	@echo "... roads_easy.i"
-	@echo "... roads_easy.s"
+	@echo "... archive.o"
+	@echo "... archive.i"
+	@echo "... archive.s"
+	@echo "... microchip.o"
+	@echo "... microchip.i"
+	@echo "... microchip.s"
 .PHONY : help
 
 

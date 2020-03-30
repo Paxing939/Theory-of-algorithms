@@ -4,7 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ilya/CLionProjects/Theory-of-algorithms/roads_easy.cpp" "/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/CMakeFiles/TA.dir/roads_easy.cpp.o"
+  "/home/ilya/CLionProjects/Theory-of-algorithms/archive.cpp" "/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/CMakeFiles/TA.dir/archive.cpp.o"
+  "/home/ilya/CLionProjects/Theory-of-algorithms/microchip.cpp" "/home/ilya/CLionProjects/Theory-of-algorithms/cmake-build-debug/CMakeFiles/TA.dir/microchip.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
