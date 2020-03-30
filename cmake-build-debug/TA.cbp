@@ -84,7 +84,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/ilya/CLionProjects/Theory-of-algorithms/microchip.cpp">
+		<Unit filename="/home/ilya/CLionProjects/Theory-of-algorithms/archive.cpp">
 			<Option target="TA"/>
 		</Unit>
 		<Unit filename="/home/ilya/CLionProjects/Theory-of-algorithms/CMakeLists.txt">
