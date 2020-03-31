@@ -158,8 +158,8 @@ std::ostream &operator<<(std::ostream &out, pelement &item) {
 }
 
 int main() {
-  std::ifstream reader("input.txt");
-  std::ofstream writer("output.txt");
+  std::ifstream reader("archive.in");
+  std::ofstream writer("archive.out");
   int n, q;
   reader >> n >> q;
 
