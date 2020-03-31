@@ -1,19 +1,21 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <queue>
+#include <stack>
 
 template<typename T>
-void PrintVector(std::ostream &out, const std::vector<T>& vector) {
-  for (const auto& x_ : vector) {
+void PrintVector(std::ostream &out, const std::vector<T> &vector) {
+  for (const auto &x_ : vector) {
     out << x_ << " ";
   }
   out << '\n';
 }
 
 template<typename T>
-void PrintMatrix(std::ostream &out, const std::vector<std::vector<T>>& matrix) {
-  for (const auto& vec : matrix) {
-    for (const auto& x_ : vec) {
+void PrintMatrix(std::ostream &out, const std::vector<std::vector<T>> &matrix) {
+  for (const auto &vec : matrix) {
+    for (const auto &x_ : vec) {
       out << x_ << " ";
     }
     out << '\n';
@@ -71,22 +73,146 @@ void BuildCanonicalView(std::ostream &writer, std::istream &reader) {
 void BuildCanonicalViewByAdjacencyMatrix(std::ostream &writer, std::istream &reader) {
   int n;
   reader >> n;
-  int vertex1, vertex2;
+  int vertex;
   std::vector<int> root_tree(n, 0);
-  for (int i = 0; i < n - 1; ++i) {
-    reader >> vertex1 >> vertex2;
-    root_tree[vertex2 - 1] = vertex1;
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      reader >> vertex;
+      if (vertex == 1) {
+        root_tree[j] = i + 1;
+      }
+    }
   }
 
   PrintVector(writer, root_tree);
+}
+
+void BFS(std::ostream &writer, std::istream &reader) {
+  int n;
+  reader >> n;
+  int vertex;
+  std::vector<std::vector<int>> graph(n);
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      reader >> vertex;
+      if (vertex) {
+        graph[i].push_back(j + 1);
+      }
+    }
+
+    if (graph[i].empty()) {
+      graph[i].push_back(0);
+    }
+  }
+
+  PrintMatrix(std::cerr, graph);
+
+  int s = 0, mark = 1;
+  std::queue<int> q;
+  std::vector<std::pair<bool, int>> used(n);
+
+  q.push(s);
+  used[s].first = true;
+  used[s].second = mark++;
+  while (!q.empty()) {
+    int v = q.front();
+    q.pop();
+    bool empty = true;
+    for (int to : graph[v]) {
+      if (!used[to - 1].first && to != 0) {
+        empty = false;
+        used[to - 1].first = true;
+        used[to - 1].second = mark++;
+        q.push(to - 1);
+      }
+    }
+
+    if (empty && q.empty()) {
+      for (size_t i = 0; i < n; ++i) {
+        if (!used[i].first) {
+          used[i].first = true;
+          used[i].second = mark++;
+          q.push(i);
+          break;
+        }
+      }
+    }
+  }
+
+  for (auto &pair : used) {
+    writer << pair.second << " ";
+  }
+}
+
+//void dfs() {
+//
+//}
+
+void DFS(std::ostream &writer, std::istream &reader) {
+  int n;
+  reader >> n;
+  int vertex;
+  std::vector<std::vector<int>> graph(n);
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      reader >> vertex;
+      if (vertex) {
+        graph[i].push_back(j + 1);
+      }
+    }
+
+    if (graph[i].empty()) {
+      graph[i].push_back(0);
+    }
+  }
+
+  PrintMatrix(std::cerr, graph);
+
+  int s = 0, mark = 1;
+  std::stack<int> stack;
+  std::vector<std::pair<bool, int>> used(n);
+
+  stack.push(s);
+  used[s].first = true;
+  used[s].second = mark++;
+  while (!stack.empty()) {
+    int v = stack.top();
+    stack.pop();
+    bool empty = true;
+    for (int to : graph[v]) {
+      if (!used[to - 1].first && to != 0) {
+        empty = false;
+        used[to - 1].first = true;
+        used[to - 1].second = mark++;
+        stack.push(to - 1);
+      }
+    }
+
+    if (empty && stack.empty()) {
+      for (size_t i = 0; i < n; ++i) {
+        if (!used[i].first) {
+          used[i].first = true;
+          used[i].second = mark++;
+          stack.push(i);
+          break;
+        }
+      }
+    }
+  }
+
+//  dfs();
+
+  for (auto &pair : used) {
+    writer << pair.second << " ";
+  }
 }
 
 int main() {
   std::ifstream reader("input.txt");
   std::ofstream writer("output.txt");
 
-  int number_of_task = 3;
-  switch(number_of_task) {
+  int number_of_task = 5;
+  switch (number_of_task) {
     case 0: {
       BuildAdjacencyMatrix(writer, reader);
       break;
@@ -101,6 +227,14 @@ int main() {
     }
     case 3: {
       BuildCanonicalViewByAdjacencyMatrix(writer, reader);
+      break;
+    }
+    case 4: {
+      BFS(writer, reader);
+      break;
+    }
+    case 5: {
+      DFS(writer, reader);
       break;
     }
 
