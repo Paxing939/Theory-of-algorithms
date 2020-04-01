@@ -3,26 +3,28 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <unordered_map>
+#include <unordered_set>
 
 template<typename T>
-void PrintVector(std::ostream &out, const std::vector<T> &vector) {
-  for (const auto &x_ : vector) {
+void PrintVector(std::ostream& out, const std::vector<T>& vector) {
+  for (const auto& x_ : vector) {
     out << x_ << " ";
   }
   out << '\n';
 }
 
 template<typename T>
-void PrintMatrix(std::ostream &out, const std::vector<std::vector<T>> &matrix) {
-  for (const auto &vec : matrix) {
-    for (const auto &x_ : vec) {
+void PrintMatrix(std::ostream& out, const std::vector<std::vector<T>>& matrix) {
+  for (const auto& vec : matrix) {
+    for (const auto& x_ : vec) {
       out << x_ << " ";
     }
     out << '\n';
   }
 }
 
-void BuildAdjacencyMatrix(std::ostream &writer, std::istream &reader) {
+void BuildAdjacencyMatrix(std::ostream& writer, std::istream& reader) {
   int n, m;
   reader >> n >> m;
   int vertex1, vertex2;
@@ -36,12 +38,12 @@ void BuildAdjacencyMatrix(std::ostream &writer, std::istream &reader) {
   PrintMatrix(writer, graph);
 }
 
-void BuildAdjacencyList(std::ostream &writer, std::istream &reader) {
+void BuildAdjacencyList(std::ostream& writer, std::istream& reader) {
   int n, m;
   reader >> n >> m;
   int vertex1, vertex2;
   std::vector<std::vector<int>> graph(n);
-  for (auto &vec : graph) {
+  for (auto& vec : graph) {
     vec.push_back(0);
   }
 
@@ -57,7 +59,7 @@ void BuildAdjacencyList(std::ostream &writer, std::istream &reader) {
   PrintMatrix(writer, graph);
 }
 
-void BuildCanonicalView(std::ostream &writer, std::istream &reader) {
+void BuildCanonicalView(std::ostream& writer, std::istream& reader) {
   int n;
   reader >> n;
   int vertex1, vertex2;
@@ -70,7 +72,7 @@ void BuildCanonicalView(std::ostream &writer, std::istream &reader) {
   PrintVector(writer, root_tree);
 }
 
-void BuildCanonicalViewByAdjacencyMatrix(std::ostream &writer, std::istream &reader) {
+void BuildCanonicalViewByAdjacencyMatrix(std::ostream& writer, std::istream& reader) {
   int n;
   reader >> n;
   int vertex;
@@ -87,7 +89,7 @@ void BuildCanonicalViewByAdjacencyMatrix(std::ostream &writer, std::istream &rea
   PrintVector(writer, root_tree);
 }
 
-void BFS(std::ostream &writer, std::istream &reader) {
+void BFS(std::ostream& writer, std::istream& reader) {
   int n;
   reader >> n;
   int vertex;
@@ -139,106 +141,101 @@ void BFS(std::ostream &writer, std::istream &reader) {
     }
   }
 
-  for (auto &pair : used) {
+  for (auto& pair : used) {
     writer << pair.second << " ";
   }
 }
 
-//void dfs() {
-//
-//}
+void dfs(int v, int &mark, const std::vector<std::vector<int>>& graph, std::vector<int>& used) {
+  if (used[v] == 0) {
+    used[v] = mark++;
+    for (auto i : graph[v]) {
+      if (i != -1 && used[i] == 0) {
+        dfs(i, mark, graph, used);
+      }
+    }
+  }
+}
 
-void DFS(std::ostream &writer, std::istream &reader) {
+void BuildGraph(std::ostream& writer, std::istream& reader) {
   int n;
   reader >> n;
   int vertex;
   std::vector<std::vector<int>> graph(n);
+  std::vector<int> used(n);
+
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; ++j) {
       reader >> vertex;
       if (vertex) {
-        graph[i].push_back(j + 1);
+        graph[i].push_back(j);
       }
     }
 
     if (graph[i].empty()) {
-      graph[i].push_back(0);
+      graph[i].push_back(-1);
     }
   }
 
-  PrintMatrix(std::cerr, graph);
+  int mark = 1;
+  for (int i = 0; i < n; ++i) {
+    dfs(i, mark, graph, used);
+  }
 
-  int s = 0, mark = 1;
-  std::stack<int> stack;
-  std::vector<std::pair<bool, int>> used(n);
-
-  stack.push(s);
-  used[s].first = true;
-  used[s].second = mark++;
-  while (!stack.empty()) {
-    int v = stack.top();
-    stack.pop();
-    bool empty = true;
-    for (int to : graph[v]) {
-      if (!used[to - 1].first && to != 0) {
-        empty = false;
-        used[to - 1].first = true;
-        used[to - 1].second = mark++;
-        stack.push(to - 1);
-      }
-    }
-
-    if (empty && stack.empty()) {
-      for (size_t i = 0; i < n; ++i) {
-        if (!used[i].first) {
-          used[i].first = true;
-          used[i].second = mark++;
-          stack.push(i);
-          break;
-        }
-      }
+  for (auto& el : used) {
+    if (el == 0) {
+      el = mark++;
     }
   }
 
-//  dfs();
-
-  for (auto &pair : used) {
-    writer << pair.second << " ";
-  }
+  PrintVector(writer, used);
 }
 
 int main() {
-  std::ifstream reader("input.txt");
-  std::ofstream writer("output.txt");
 
-  int number_of_task = 5;
-  switch (number_of_task) {
-    case 0: {
-      BuildAdjacencyMatrix(writer, reader);
-      break;
+  std::unordered_set<int> set;
+  std::vector<int> nums = {1, 2, 2};
+  for (auto el : nums) {
+    if (set.count(el) == 0) {
+      set.insert(el);
+    } else {
+      set.erase(el);
     }
-    case 1: {
-      BuildAdjacencyList(writer, reader);
-      break;
-    }
-    case 2: {
-      BuildCanonicalView(writer, reader);
-      break;
-    }
-    case 3: {
-      BuildCanonicalViewByAdjacencyMatrix(writer, reader);
-      break;
-    }
-    case 4: {
-      BFS(writer, reader);
-      break;
-    }
-    case 5: {
-      DFS(writer, reader);
-      break;
-    }
-
   }
+  for (auto el : set) {
+    std::cout << el << " ";
+  }
+
+//  std::ifstream reader("input.txt");
+//  std::ofstream writer("output.txt");
+//
+//  int number_of_task = 5;
+//  switch (number_of_task) {
+//    case 0: {
+//      BuildAdjacencyMatrix(writer, reader);
+//      break;
+//    }
+//    case 1: {
+//      BuildAdjacencyList(writer, reader);
+//      break;
+//    }
+//    case 2: {
+//      BuildCanonicalView(writer, reader);
+//      break;
+//    }
+//    case 3: {
+//      BuildCanonicalViewByAdjacencyMatrix(writer, reader);
+//      break;
+//    }
+//    case 4: {
+//      BFS(writer, reader);
+//      break;
+//    }
+//    case 5: {
+//      BuildGraph(writer, reader);
+//      break;
+//    }
+//  }
 
   return 0;
 }
