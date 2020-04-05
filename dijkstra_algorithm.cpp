@@ -18,7 +18,7 @@ int main() {
   }
 
   int s = 0;
-  std::vector<int> d(n, INT_MAX), p(n);
+  std::vector<int> d(n, INT_MAX);
   d[s] = 0;
   std::vector<bool> used(n);
   for (int i = 0; i < n; ++i) {
@@ -35,11 +35,8 @@ int main() {
     used[v] = true;
 
     for (size_t j = 0; j < graph[v].size(); ++j) {
-      int to = graph[v][j].first, len = graph[v][j].second;
-
-      if (d[v] + len < d[to]) {
-        d[to] = d[v] + len;
-        p[to] = v;
+      if (d[v] + graph[v][j].second < d[graph[v][j].first]) {
+        d[graph[v][j].first] = d[v] + graph[v][j].second;
       }
     }
   }
