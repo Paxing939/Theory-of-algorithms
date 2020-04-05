@@ -172,5 +172,5 @@ int main() {
 
   auto answer = Fast(points);
 
-  std::cout << answer.first << " " << answer.second;
+  std::cout << pow(CalcDistance(points[answer.first], points[answer.second]), 2);
 }
