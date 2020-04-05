@@ -1,5 +1,5 @@
 # Theory-of-algorithms
-Realization of different tasks and algorithms
+Realization of different tasks and algorithms. Most of it I've done as my University homework.
 
 ### Tree task
 
