@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <iomanip>
 #include <utility>
-#include <set>
 
 template<typename T>
 void PrintMatrix(const std::vector<std::vector<T>> &matrix) {
@@ -17,6 +16,14 @@ void PrintMatrix(const std::vector<std::vector<T>> &matrix) {
   }
 }
 
+template<typename T>
+void PrintVector(const std::vector<T>& vector) {
+  for (const auto& x_ : vector) {
+    std::cout << std::setw(7) << std::setprecision(2) << std::left << x_ << " ";
+  }
+  std::cout << std::endl;
+}
+
 struct Point {
   int x;
   int y;
@@ -26,9 +33,14 @@ struct Point {
 };
 
 std::ostream &operator<<(std::ostream &out, const Point &point) {
-  out << point.x << " " << point.y << " " << point.direction << " " << point.x_end << " " << point.y_end;
+  out << point.x << " " << point.y;
   return out;
 }
+
+//std::ostream &operator<<(std::ostream &out, const Point &point) {
+//  out << point.x << " " << point.y << " " << point.direction << " " << point.x_end << " " << point.y_end;
+//  return out;
+//}
 
 bool operator<(const Point &lhs, const Point &rhs) {
   if (lhs.x < rhs.x) {
@@ -49,29 +61,47 @@ public:
   }
 
   void FindDirection(Point &point) {
+//    std::cerr << "FindDirection call\n";
+if (point.x == 3 && point.y == 11) {
+  int kawabanga = 1212;
+}
+
     std::vector<bool> dirs(4, true);
-    for (const auto &processed_point : processed_points) {
+    for (const auto &processed_point : points) {
       if (dirs[0]) {
-        dirs[0] = !intersect(point, {point.x, length, 0, 0, 0}, processed_point,
-                             {processed_point.x_end, processed_point.y_end, 0, 0, 0});
+//        dirs[0] = !intersect(point, {point.x, length, 0, 0, 0}, processed_point,
+//                             {processed_point.x_end, processed_point.y_end, 0, 0, 0});
+        if (processed_point.x == point.x && processed_point.y > point.y) {
+          dirs[0] = false;
+        }
       }
 
       if (dirs[1]) {
-        dirs[1] = !intersect(point, {length, point.y, 0, 0, 0}, processed_point,
-                             {processed_point.x_end, processed_point.y_end, 0, 0, 0});
+//        dirs[1] = !intersect(point, {length, point.y, 0, 0, 0}, processed_point,
+//                             {processed_point.x_end, processed_point.y_end, 0, 0, 0});
+        if (processed_point.y == point.y && processed_point.x > point.x) {
+          dirs[1] = false;
+        }
       }
 
       if (dirs[2]) {
-        dirs[2] = !intersect(point, {point.x, 1, 0, 0, 0}, processed_point,
-                             {processed_point.x_end, processed_point.y_end, 0, 0, 0});
+//        dirs[2] = !intersect(point, {point.x, 1, 0, 0, 0}, processed_point,
+//                             {processed_point.x_end, processed_point.y_end, 0, 0, 0});
+        if (processed_point.x == point.x && processed_point.y < point.y) {
+          dirs[2] = false;
+        }
       }
 
       if (dirs[3]) {
-        dirs[3] = !intersect(point, {1, point.y, 0, 0, 0}, processed_point,
-                             {processed_point.x_end, processed_point.y_end, 0, 0, 0});
+//        dirs[3] = !intersect(point, {1, point.y, 0, 0, 0}, processed_point,
+//                             {processed_point.x_end, processed_point.y_end, 0, 0, 0});
+        if (processed_point.y == point.y && processed_point.x < point.x) {
+          dirs[3] = false;
+        }
       }
     }
 
+    length++;
     std::vector<int> lines = {length - point.y, length - point.x, point.y, point.x};
     int min = lines[0], min_ind = 0;
     for (int i = 0; i < 4; ++i) {
@@ -84,128 +114,86 @@ public:
     }
 
     point.direction = min_ind;
-
     switch (min_ind) {
       case 0: {
-        point.x_end = point.x;
-        point.y_end = length;
+//        point.x_end = point.x;
+//        point.y_end = length;
         result_length += length - point.y;
         break;
       }
       case 1: {
-        point.x_end = length;
-        point.y_end = point.y;
+//        point.x_end = length;
+//        point.y_end = point.y;
         result_length += length - point.x;
         break;
       }
       case 2: {
-        point.x_end = point.x;
-        point.y_end = 1;
+//        point.x_end = point.x;
+//        point.y_end = 1;
         result_length += point.y;
         break;
       }
       case 3: {
-        point.x_end = 1;
-        point.y_end = point.y;
+//        point.x_end = 1;
+//        point.y_end = point.y;
         result_length += point.x;
         break;
       }
     }
-
-    processed_points.push_back(point);
+    length--;
+//    processed_points.push_back(point);
   }
 
-  void FindRoutes() {
-
-    std::vector<std::vector<Point *>> grid(n, std::vector<Point *>(n, nullptr));
-//
-//    n = 6;
-//    std::vector<std::vector<int>> grid = {
-//        {0,  1,  2,  3,  4, 5},
-//        {6,  7,  8,  9, 10, 11},
-//        {12, 13, 14, 15, 16, 17},
-//        {18, 19, 20, 21, 22, 23},
-//        {24, 25, 26, 27, 28, 29},
-//        {30, 31, 32, 33, 34, 35}
-//    };
-//
+  std::string FindRoutes() {
+    length -= 1;
+    std::vector<std::vector<Point *>> grid(length, std::vector<Point *>(length, nullptr));
     for (auto &point : points) {
-      grid[point.x - 1][point.y - 1] = &point;
+      grid[grid.size() - point.y][point.x - 1] = &point;
     }
+//      PrintMatrix(grid);
 
-//    PrintMatrix(grid);
+    for (int i = 0; i < length / 2; ++i) {
 
-    for (int i = 0; i < n / 2; ++i) {
-
-//      std::cerr << 0 << '\n';
-      for (int j = i; j < n - i; ++j) {
-//        std::cerr << grid[j][i] << " ";
+      for (int j = i; j < length - i; ++j) {
         if (grid[j][i] != nullptr) {
           FindDirection(*grid[j][i]);
         }
       }
-//      std::cerr << 1 << '\n';
 
-      for (int j = i + 1; j < n - i; ++j) {
-        int tmp = n - i - 1;
-//        std::cerr << grid[tmp][j] << " ";
-        if (grid[n - i - 1][j] != nullptr) {
-          FindDirection(*grid[n - i - 1][j]);
+      for (int j = i + 1; j < length - i; ++j) {
+        if (grid[length - i - 1][j] != nullptr) {
+          FindDirection(*grid[length - i - 1][j]);
         }
       }
 
-//      std::cerr << 2 << '\n';
-      for (int j = i + 1; j < n - i; ++j) {
-//        std::cerr << grid[n - j - 1][n - i - 1] << " ";
-        if (grid[n - j - 1][n - i - 1] != nullptr) {
-          FindDirection(*grid[n - j - 1][n - i - 1]);
+      for (int j = i + 1; j < length - i; ++j) {
+        if (grid[length - j - 1][length - i - 1] != nullptr) {
+          FindDirection(*grid[length - j - 1][length - i - 1]);
         }
       }
 
-//      std::cerr << 3 << '\n';
-      for (int j = i + 1; j < n - i - 1; ++j) {
-//        std::cerr << grid[i][n - j - 1] << " ";
-        if (grid[i][n - j - 1] != nullptr) {
-          FindDirection(*grid[i][n - j - 1]);
+      for (int j = i + 1; j < length - i - 1; ++j) {
+        if (grid[i][length - j - 1] != nullptr) {
+          FindDirection(*grid[i][length - j - 1]);
         }
       }
-
-//      std::cerr << 4 << '\n';
-//      std::cerr << std::endl;
 
     }
 
-    if (n % 2 == 1) {
-//      std::cerr << grid[n / 2][n / 2];
-      if (grid[n / 2][n / 2] != nullptr) {
-        FindDirection(*grid[n / 2][n / 2]);
+    if (length % 2 == 1) {
+      if (grid[length / 2][length / 2] != nullptr) {
+        FindDirection(*grid[length / 2][length / 2]);
       }
     }
 
-    WriteAnswer();
-//    std::vector<int> sides, directions(n);
-//    int max_ind = 0, max, i = 0;
-//    for (auto &point : points) {
-//      sides = {15 - point.y, 15 - point.x, point.y, point.x};
-//      max = sides[max_ind];
-//      for (int i = 0; i < 4; ++i) {
-//        if (max < sides[i]) {
-//          max = sides[i];
-//          max_ind = i;
-//        }
-//      }
-//      directions[i] = 0;
-//
-//
-//      ++i;
-//    }
-
+    return WriteAnswer();
   }
 
 private:
 
-  void WriteAnswer() {
-    std::ofstream writer("output.txt");
+  std::string WriteAnswer() {
+//    std::ofstream writer("output.txt");
+    std::stringstream writer;
     writer << result_length << '\n';
     for (const auto &point : points) {
       switch (point.direction) {
@@ -227,6 +215,8 @@ private:
         }
       }
     }
+
+    return writer.str();
   }
 
   inline int area(Point a, Point b, Point c) {
@@ -247,33 +237,79 @@ private:
   }
 
   bool intersect(Point a, Point b, Point c, Point d) {
-    return intersect_old(a, b, c, d);
+    return Belongs(a, b, c, d);
   }
 
   bool Belongs(Point a, Point b, Point c, Point d) {
     return b.x == d.x && b.y == d.y;
   }
 
-
   int length, n, result_length;
   std::vector<Point> points;
   std::vector<Point> processed_points;
 };
 
-int main() {
-  std::ifstream reader("input.txt");
-  int length, n, x, y;
-  reader >> length >> n;
+std::string ReadInfo(std::ifstream &tests_reader) {
+  std::string test;
+  std::getline(tests_reader, test, '&');
+  return test;
+}
 
-  std::vector<Point> points(n);
-  for (int i = 0; i < n; ++i) {
-    reader >> x >> y;
-    points[i] = {x, y, 0, 0, 0};
+void Generator() {
+  int amount_of_tests = 2;
+  std::ifstream tests_reader("tests.txt");
+  std::ifstream answers_reader("answers.txt");
+
+  for (int i = 0; i < amount_of_tests; ++i) {
+    std::stringstream ss(ReadInfo(tests_reader));
+    std::string answer = ReadInfo(answers_reader);
+
+    int length, n, x, y;
+    ss >> length >> n;
+    std::vector<Point> points(n);
+    for (int i = 0; i < n; ++i) {
+      ss >> x >> y;
+      points[i] = {x, y, 0, 0, 0};
+    }
+
+    Microchip microchip(length, points);
+    std::string algo_answer = microchip.FindRoutes();
+
+    if (algo_answer == answer) {
+      std::cout << "Test №" << i + 1 << " is complete!\n";
+    } else {
+      std::cout << "Test №" << i + 1 << " is failed!\n";
+      std::ofstream logs_writer("log.txt");
+      logs_writer << "Algorithm answer is:\n" << algo_answer;
+      logs_writer << "Correct answer is:" << answer;
+      logs_writer.close();
+      exit(123);
+    }
   }
+}
 
-  Microchip microchip(length, points);
-
-  microchip.FindRoutes();
+int main() {Generator();
+//  std::ifstream reader("input.txt");
+//  int length, n, x, y;
+//  reader >> length >> n;
+//
+//  std::vector<Point> points(n);
+//  for (int i = 0; i < n; ++i) {
+//    reader >> x >> y;
+//    points[i] = {x, y, 0, 0, 0};
+//  }
+//
+//  Microchip microchip(length, points);
+//
+//  microchip.FindRoutes();
 
   return 0;
 }
+
+//6
+//5
+//4 1
+//5 1
+//1 5
+//4 2
+//5 2

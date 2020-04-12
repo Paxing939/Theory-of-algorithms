@@ -3,4 +3,4 @@ project(TA)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(TA dijkstra_algorithm.cpp)
+add_executable(TA microchip.cpp)
