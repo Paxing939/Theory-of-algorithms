@@ -37,11 +37,6 @@ std::ostream &operator<<(std::ostream &out, const Point &point) {
   return out;
 }
 
-//std::ostream &operator<<(std::ostream &out, const Point &point) {
-//  out << point.x << " " << point.y << " " << point.direction << " " << point.x_end << " " << point.y_end;
-//  return out;
-//}
-
 bool operator<(const Point &lhs, const Point &rhs) {
   if (lhs.x < rhs.x) {
     return true;
@@ -56,13 +51,12 @@ public:
   Microchip() {}
 
   Microchip(int length, const std::vector<Point> &points) : length(length), points(points), n(points.size()),
-                                                            result_length(0) {
-    processed_points.reserve(n);
-  }
+                                                            result_length(0) {}
 
   void FindDirection(Point &point) {
 //    std::cerr << "FindDirection call\n";
-if (point.x == 3 && point.y == 11) {
+
+if (point.x == 12 && point.y == 1) {
   int kawabanga = 1212;
 }
 
@@ -74,6 +68,17 @@ if (point.x == 3 && point.y == 11) {
         if (processed_point.x == point.x && processed_point.y > point.y) {
           dirs[0] = false;
         }
+
+        if (processed_point.direction == 1) {
+          if (processed_point.x < point.x) {
+            dirs[0] = false;
+          }
+        }
+        if (processed_point.direction == 3) {
+          if (processed_point.x > point.x) {
+            dirs[0] = false;
+          }
+        }
       }
 
       if (dirs[1]) {
@@ -81,6 +86,17 @@ if (point.x == 3 && point.y == 11) {
 //                             {processed_point.x_end, processed_point.y_end, 0, 0, 0});
         if (processed_point.y == point.y && processed_point.x > point.x) {
           dirs[1] = false;
+        }
+
+        if (processed_point.direction == 0) {
+          if (processed_point.y < point.y) {
+            dirs[1] = false;
+          }
+        }
+        if (processed_point.direction == 2) {
+          if (processed_point.y > point.y) {
+            dirs[1] = false;
+          }
         }
       }
 
@@ -90,6 +106,17 @@ if (point.x == 3 && point.y == 11) {
         if (processed_point.x == point.x && processed_point.y < point.y) {
           dirs[2] = false;
         }
+
+        if (processed_point.direction == 1) {
+          if (processed_point.x < point.x) {
+            dirs[2] = false;
+          }
+        }
+        if (processed_point.direction == 3) {
+          if (processed_point.x > point.x) {
+            dirs[2] = false;
+          }
+        }
       }
 
       if (dirs[3]) {
@@ -98,12 +125,23 @@ if (point.x == 3 && point.y == 11) {
         if (processed_point.y == point.y && processed_point.x < point.x) {
           dirs[3] = false;
         }
+
+        if (processed_point.direction == 0) {
+          if (processed_point.y < point.y) {
+            dirs[3] = false;
+          }
+        }
+        if (processed_point.direction == 2) {
+          if (processed_point.y > point.y) {
+            dirs[3] = false;
+          }
+        }
       }
     }
 
     length++;
     std::vector<int> lines = {length - point.y, length - point.x, point.y, point.x};
-    int min = lines[0], min_ind = 0;
+    int min = 2147483647, min_ind;
     for (int i = 0; i < 4; ++i) {
       if (dirs[i]) {
         if (min > lines[i]) {
@@ -187,9 +225,35 @@ if (point.x == 3 && point.y == 11) {
     }
 
     return WriteAnswer();
+//    WriteAnswerRun();
   }
 
 private:
+
+  void WriteAnswerRun() {
+    std::ofstream writer("output.txt");
+    writer << result_length << '\n';
+    for (const auto &point : points) {
+      switch (point.direction) {
+        case 0: {
+          writer << "UP" << '\n';
+          break;
+        }
+        case 1: {
+          writer << "RIGHT" << '\n';
+          break;
+        }
+        case 2: {
+          writer << "DOWN" << '\n';
+          break;
+        }
+        case 3: {
+          writer << "LEFT" << '\n';
+          break;
+        }
+      }
+    }
+  }
 
   std::string WriteAnswer() {
 //    std::ofstream writer("output.txt");
@@ -219,34 +283,8 @@ private:
     return writer.str();
   }
 
-  inline int area(Point a, Point b, Point c) {
-    return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
-  }
-
-  inline bool intersect_1(int a, int b, int c, int d) {
-    if (a > b) { std::swap(a, b); }
-    if (c > d) { std::swap(c, d); }
-    return std::max(a, c) <= std::min(b, d);
-  }
-
-  bool intersect_old(Point a, Point b, Point c, Point d) {
-    return intersect_1(a.x, b.x, c.x, d.x)
-           && intersect_1(a.y, b.y, c.y, d.y)
-           && area(a, b, c) * area(a, b, d) <= 0
-           && area(c, d, a) * area(c, d, b) <= 0;
-  }
-
-  bool intersect(Point a, Point b, Point c, Point d) {
-    return Belongs(a, b, c, d);
-  }
-
-  bool Belongs(Point a, Point b, Point c, Point d) {
-    return b.x == d.x && b.y == d.y;
-  }
-
   int length, n, result_length;
   std::vector<Point> points;
-  std::vector<Point> processed_points;
 };
 
 std::string ReadInfo(std::ifstream &tests_reader) {
@@ -261,7 +299,8 @@ void Generator() {
   std::ifstream answers_reader("answers.txt");
 
   for (int i = 0; i < amount_of_tests; ++i) {
-    std::stringstream ss(ReadInfo(tests_reader));
+    std::string test = ReadInfo(tests_reader);
+    std::stringstream ss(test);
     std::string answer = ReadInfo(answers_reader);
 
     int length, n, x, y;
@@ -269,26 +308,31 @@ void Generator() {
     std::vector<Point> points(n);
     for (int i = 0; i < n; ++i) {
       ss >> x >> y;
-      points[i] = {x, y, 0, 0, 0};
+      points[i] = {x, y, -1, 0, 0};
     }
 
     Microchip microchip(length, points);
     std::string algo_answer = microchip.FindRoutes();
+    std::cout << algo_answer << '\n';
 
     if (algo_answer == answer) {
-      std::cout << "Test №" << i + 1 << " is complete!\n";
+      std::cout << "Test №" << i + 1 << " is completed!\n";
+      std::ofstream logs_writer("log.txt");
+      logs_writer << "Algorithm answer is:\n" << algo_answer;
+      logs_writer << "Correct answer is:\n" << answer;
     } else {
       std::cout << "Test №" << i + 1 << " is failed!\n";
       std::ofstream logs_writer("log.txt");
       logs_writer << "Algorithm answer is:\n" << algo_answer;
-      logs_writer << "Correct answer is:" << answer;
+      logs_writer << "Correct answer is:\n" << answer;
       logs_writer.close();
       exit(123);
     }
   }
 }
 
-int main() {Generator();
+int main() {
+  Generator();
 //  std::ifstream reader("input.txt");
 //  int length, n, x, y;
 //  reader >> length >> n;
@@ -301,15 +345,8 @@ int main() {Generator();
 //
 //  Microchip microchip(length, points);
 //
-//  microchip.FindRoutes();
+//  std::ofstream writer("output.txt");
+//  std::cout << microchip.FindRoutes();
 
   return 0;
 }
-
-//6
-//5
-//4 1
-//5 1
-//1 5
-//4 2
-//5 2
