@@ -1,6 +1,4 @@
 cmake-build-debug/*
 cmake-build-debug/
-/CMakeLists.txt
-CMakeLists.txt
 /.idea
 cmake-build-debug/CMakeFiles/
