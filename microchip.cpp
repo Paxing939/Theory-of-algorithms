@@ -332,21 +332,21 @@ void Generator() {
 }
 
 int main() {
-  Generator();
-//  std::ifstream reader("input.txt");
-//  int length, n, x, y;
-//  reader >> length >> n;
-//
-//  std::vector<Point> points(n);
-//  for (int i = 0; i < n; ++i) {
-//    reader >> x >> y;
-//    points[i] = {x, y, 0, 0, 0};
-//  }
-//
-//  Microchip microchip(length, points);
-//
-//  std::ofstream writer("output.txt");
-//  std::cout << microchip.FindRoutes();
+//  Generator();
+  std::ifstream reader("input.txt");
+  int length, n, x, y;
+  reader >> length >> n;
+
+  std::vector<Point> points(n);
+  for (int i = 0; i < n; ++i) {
+    reader >> x >> y;
+    points[i] = {x, y, -1, 0, 0};
+  }
+
+  Microchip microchip(length, points);
+
+  std::ofstream writer("output.txt");
+  writer << microchip.FindRoutes();
 
   return 0;
 }
