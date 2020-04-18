@@ -30,19 +30,24 @@ struct Point {
   int direction;
   int x_end;
   int y_end;
+  std::vector<int> dirs;
+  int closed;
+
+  Point(int x1, int y1) : x(x1), y(y1), direction(-1), dirs(4, 1), closed(0) {}
 };
 
 std::ostream &operator<<(std::ostream &out, const Point &point) {
-  out << point.x << " " << point.y;
+  out << point.closed; //<< " " << point.y;
   return out;
 }
 
 bool operator<(const Point &lhs, const Point &rhs) {
-  if (lhs.x < rhs.x) {
-    return true;
-  } else {
-    return lhs.y < rhs.y;
-  }
+//  if (lhs.x < rhs.x) {
+//    return true;
+//  } else {
+//    return lhs.y < rhs.y;
+//  }
+  return lhs.closed < rhs.closed;
 }
 
 class Microchip {
@@ -228,6 +233,59 @@ if (point.x == 12 && point.y == 1) {
 //    WriteAnswerRun();
   }
 
+  void CheckDirs(Point &point_to_check) {
+    for (auto &point : points) {
+      if (point.x == point_to_check.x || point.y > point_to_check.y) {
+        point_to_check.dirs[0] = 0;
+        point_to_check.closed;
+      }
+      if (point.y == point_to_check.y || point.x > point_to_check.x) {
+        point_to_check.dirs[1] = 0;
+        point_to_check.closed;
+      }
+      if (point.x == point_to_check.x || point.y < point_to_check.y) {
+        point_to_check.dirs[2] = 0;
+        point_to_check.closed;
+      }
+      if (point.y == point_to_check.y || point.x < point_to_check.x) {
+        point_to_check.dirs[3] = 0;
+        point_to_check.closed;
+      }
+    }
+
+    bool smth_wrong = true;
+    for (const auto &el : point_to_check.dirs) {
+      if (el) {
+        smth_wrong = false;
+        break;
+      }
+    }
+
+    if (smth_wrong) {
+      throw std::runtime_error("Point is closed, test is bad!");
+    }
+  }
+
+  void FindRoutes2() {
+    length -= 1;
+    std::vector<std::vector<Point *>> grid(length, std::vector<Point *>(length, nullptr));
+    for (auto &point : points) {
+      grid[grid.size() - point.y][point.x - 1] = &point;
+    }
+
+    // n^2
+    for (auto &point : points) {
+      CheckDirs(point);
+    }
+
+    auto points_sorted(points);
+    std::sort(points_sorted.begin(), points_sorted.end());
+
+    for (auto &point : points_sorted) {
+      std::cout << point << '\n';
+    }
+  }
+
 private:
 
   void WriteAnswerRun() {
@@ -241,7 +299,6 @@ private:
         }
         case 1: {
           writer << "RIGHT" << '\n';
-          break;
         }
         case 2: {
           writer << "DOWN" << '\n';
@@ -294,7 +351,7 @@ std::string ReadInfo(std::ifstream &tests_reader) {
 }
 
 void Generator() {
-  int amount_of_tests = 2;
+  int amount_of_tests = 6;
   std::ifstream tests_reader("tests.txt");
   std::ifstream answers_reader("answers.txt");
 
@@ -308,23 +365,23 @@ void Generator() {
     std::vector<Point> points(n);
     for (int i = 0; i < n; ++i) {
       ss >> x >> y;
-      points[i] = {x, y, -1, 0, 0};
+      points[i] = Point(x, y);
     }
 
     Microchip microchip(length, points);
     std::string algo_answer = microchip.FindRoutes();
-    std::cout << algo_answer << '\n';
+//    std::cout << algo_answer << '\n';
 
     if (algo_answer == answer) {
       std::cout << "Test №" << i + 1 << " is completed!\n";
       std::ofstream logs_writer("log.txt");
-      logs_writer << "Algorithm answer is:\n" << algo_answer;
-      logs_writer << "Correct answer is:\n" << answer;
+//      logs_writer << "Algorithm answer is:\n" << algo_answer;
+//      logs_writer << "Correct answer is:\n" << answer;
     } else {
       std::cout << "Test №" << i + 1 << " is failed!\n";
       std::ofstream logs_writer("log.txt");
-      logs_writer << "Algorithm answer is:\n" << algo_answer;
-      logs_writer << "Correct answer is:\n" << answer;
+//      logs_writer << "Algorithm answer is:\n" << algo_answer;
+//      logs_writer << "Correct answer is:\n" << answer;
       logs_writer.close();
       exit(123);
     }
@@ -332,21 +389,21 @@ void Generator() {
 }
 
 int main() {
-//  Generator();
-  std::ifstream reader("input.txt");
-  int length, n, x, y;
-  reader >> length >> n;
-
-  std::vector<Point> points(n);
-  for (int i = 0; i < n; ++i) {
-    reader >> x >> y;
-    points[i] = {x, y, -1, 0, 0};
-  }
-
-  Microchip microchip(length, points);
-
-  std::ofstream writer("output.txt");
-  writer << microchip.FindRoutes();
+  Generator();
+//  std::ifstream reader("input.txt");
+//  int length, n, x, y;
+//  reader >> length >> n;
+//
+//  std::vector<Point> points(n);
+//  for (int i = 0; i < n; ++i) {
+//    reader >> x >> y;
+//    points[i] = {x, y, -1, 0, 0};
+//  }
+//
+//  Microchip microchip(length, points);
+//
+//  std::ofstream writer("output.txt");
+//  writer << microchip.FindRoutes();
 
   return 0;
 }
