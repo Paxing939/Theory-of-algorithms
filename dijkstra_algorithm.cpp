@@ -3,43 +3,42 @@
 #include <vector>
 #include <utility>
 #include <algorithm>
+#include <set>
 
 int main() {
-  std::ofstream writer("output.txt");
-  std::ifstream reader("input.txt");
-  int n, m;
-  reader >> n >> m;
+	std::ofstream writer("output.txt");
+	std::ifstream reader("input.txt");
+	int64_t n, m;
+	reader >> n >> m;
 
-  int index, vertex, length;
-  std::vector<std::vector<std::pair<int, int>>> graph(n);
-  for (int i = 0; i < n; ++i) {
-    reader >> index >> vertex >> length;
-    graph[index].push_back({vertex, length});
-  }
+	int64_t vertex1, vertex2, weight;
+	std::vector<std::vector<std::pair<int64_t, int64_t>>> graph(n);
+	for (int64_t i = 0; i < m; ++i) {
+		reader >> vertex1 >> vertex2 >> weight;
+		graph[vertex1 - 1].push_back({vertex2 - 1, weight});
+		graph[vertex2 - 1].push_back({vertex1 - 1, weight});
+	}
 
-  int s = 0;
-  std::vector<int> d(n, INT_MAX);
-  d[s] = 0;
-  std::vector<bool> used(n);
-  for (int i = 0; i < n; ++i) {
-    int v = -1;
-    for (int j = 0; j < n; ++j) {
-      if (!used[j] && (v == -1 || d[j] < d[v])) {
-        v = j;
-      }
-    }
+	int64_t s = 0;
+	std::vector<int64_t> d(n, std::numeric_limits<int64_t>::max());
+	d[s] = 0;
+	std::set<std::pair<int64_t, int64_t>> q;
+	q.insert({d[s], s});
+	while (!q.empty()) {
+		int64_t v = q.begin()->second;
+		q.erase(q.begin());
 
-    if (d[v] == INT_MAX) {
-      break;
-    }
-    used[v] = true;
+		for (size_t j = 0; j < graph[v].size(); ++j) {
+			int64_t to = graph[v][j].first, len = graph[v][j].second;
 
-    for (size_t j = 0; j < graph[v].size(); ++j) {
-      if (d[v] + graph[v][j].second < d[graph[v][j].first]) {
-        d[graph[v][j].first] = d[v] + graph[v][j].second;
-      }
-    }
-  }
+			if (d[v] + len < d[to]) {
+				q.erase({d[to], to});
+				d[to] = d[v] + len;
+				q.insert({d[to], to});
+			}
+		}
+	}
 
-  writer << *std::min_element(d.begin(), d.end());
+	writer << d.back();
+	return 0;
 }
