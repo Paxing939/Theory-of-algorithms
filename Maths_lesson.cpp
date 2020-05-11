@@ -4,6 +4,7 @@
 #include <sstream>
 #include <ctime>
 #include <algorithm>
+#include <map>
 
 bool Comparator(int a, int b) {
 	return a > b;
@@ -47,8 +48,9 @@ std::string MathsLesson(const std::string &test) {
 	int n;
 	ss >> n;
 
-	std::vector<int> numbers(n), sums_to_skip(200 * n);
-	int current = 0, fill = 0;
+	std::vector<int> numbers(n);
+	std::map<int, int> map;
+
 	int i = 0, j = 0, sum = 0;
 	ss >> sum;
 	numbers[j] = sum / 2;
@@ -60,10 +62,24 @@ std::string MathsLesson(const std::string &test) {
 		}
 
 		ss >> sum;
-		for (int k = current; k < fill; ++k) {
-			if (sum == sums_to_skip[k]) {
+		while (true) {
+			if (!map.empty()) {
+				if (map.begin()->first == sum) {
+					if (map.begin()->second > 1) {
+						map.begin()->second--;
+					} else {
+						map.erase(map.begin());
+					}
+				} else {
+					if (sum > map.begin()->first) {
+						map.erase(map.begin());
+					} else {
+						break;
+					}
+				}
 				ss >> sum;
-				current++;
+			} else {
+				break;
 			}
 		}
 
@@ -71,8 +87,19 @@ std::string MathsLesson(const std::string &test) {
 		out << numbers[j] << '\n';
 		j++;
 		for (int k = 0; k < j; ++k) {
-			sums_to_skip[fill] = numbers[j - 1] + numbers[k];
-			fill++;
+			if (k != j - 1) {
+				if (map.count(numbers[j - 1] + numbers[k]) != 0) {
+					map.at(numbers[j - 1] + numbers[k]) += 2;
+				} else {
+					map.insert({numbers[j - 1] + numbers[k], 2});
+				}
+			} else {
+				if (map.count(numbers[j - 1] + numbers[k]) != 0) {
+					map.at(numbers[j - 1] + numbers[k])++;
+				} else {
+					map.insert({numbers[j - 1] + numbers[k], 1});
+				}
+			}
 		}
 
 		i++;
@@ -86,7 +113,7 @@ void MathsLesson() {
 	std::cin >> n;
 
 	std::vector<int> numbers(n);
-	std::vector<int> heap;
+	std::map<int, int> map;
 
 	int i = 0, j = 0, sum = 0;
 	std::cin >> sum;
@@ -100,19 +127,21 @@ void MathsLesson() {
 
 		std::cin >> sum;
 		while (true) {
-			if (!heap.empty()) {
-				if (sum == heap[0]) {
-					std::cin >> sum;
-					pop_heap(heap.begin(), heap.end(), Comparator);
-					heap.pop_back();
+			if (!map.empty()) {
+				if (map.begin()->first == sum) {
+					if (map.begin()->second > 1) {
+						map.begin()->second--;
+					} else {
+						map.erase(map.begin());
+					}
 				} else {
-					if (sum > heap[0]) {
-						pop_heap(heap.begin(), heap.end(), Comparator);
-						heap.pop_back();
+					if (sum > map.begin()->first) {
+						map.erase(map.begin());
 					} else {
 						break;
 					}
 				}
+				std::cin >> sum;
 			} else {
 				break;
 			}
@@ -121,12 +150,22 @@ void MathsLesson() {
 		numbers[j] = sum - numbers[0];
 		std::cout << numbers[j] << '\n';
 		j++;
+		if (j == n) {
+			break;
+		}
 		for (int k = 0; k < j; ++k) {
-			heap.push_back(numbers[j - 1] + numbers[k]);
-			push_heap(heap.begin(), heap.end(), Comparator);
 			if (k != j - 1) {
-				heap.push_back(numbers[k] + numbers[j - 1]);
-				push_heap(heap.begin(), heap.end(), Comparator);
+				if (map.count(numbers[j - 1] + numbers[k]) != 0) {
+					map.at(numbers[j - 1] + numbers[k]) += 2;
+				} else {
+					map.insert({numbers[j - 1] + numbers[k], 2});
+				}
+			} else {
+				if (map.count(numbers[j - 1] + numbers[k]) != 0) {
+					map.at(numbers[j - 1] + numbers[k])++;
+				} else {
+					map.insert({numbers[j - 1] + numbers[k], 1});
+				}
 			}
 		}
 
