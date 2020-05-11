@@ -86,7 +86,12 @@ std::string MathsLesson(const std::string &test) {
 		numbers[j] = sum - numbers[0];
 		out << numbers[j] << '\n';
 		j++;
-		for (int k = 0; k < j; ++k) {
+    if (map.count(numbers[j - 1] + numbers[0]) != 0) {
+      map.at(numbers[j - 1] + numbers[0])++;
+    } else {
+      map.insert({numbers[j - 1] + numbers[0], 1});
+    }
+		for (int k = 1; k < j; ++k) {
 			if (k != j - 1) {
 				if (map.count(numbers[j - 1] + numbers[k]) != 0) {
 					map.at(numbers[j - 1] + numbers[k]) += 2;
@@ -113,17 +118,14 @@ void MathsLesson() {
 	std::cin >> n;
 
 	std::vector<int> numbers(n);
-	std::map<int, int> map;
+	std::map<int, short> map;
 
 	int i = 0, j = 0, sum = 0;
 	std::cin >> sum;
 	numbers[j] = sum / 2;
 	std::cout << numbers[j] << "\n";
 	i++, j++;
-	while (i < n * n) {
-		if (j == n) {
-			break;
-		}
+	while (true) {
 
 		std::cin >> sum;
 		while (true) {
@@ -153,21 +155,23 @@ void MathsLesson() {
 		if (j == n) {
 			break;
 		}
-		for (int k = 0; k < j; ++k) {
-			if (k != j - 1) {
+    if (map.count(numbers[j - 1] + numbers[0]) != 0) {
+      map.at(numbers[j - 1] + numbers[0])++;
+    } else {
+      map.insert({numbers[j - 1] + numbers[0], 1});
+    }
+		for (int k = 1; k < j - 1; ++k) {
 				if (map.count(numbers[j - 1] + numbers[k]) != 0) {
 					map.at(numbers[j - 1] + numbers[k]) += 2;
 				} else {
 					map.insert({numbers[j - 1] + numbers[k], 2});
 				}
-			} else {
-				if (map.count(numbers[j - 1] + numbers[k]) != 0) {
-					map.at(numbers[j - 1] + numbers[k])++;
-				} else {
-					map.insert({numbers[j - 1] + numbers[k], 1});
-				}
-			}
 		}
+    if (map.count(2 * numbers[j - 1]) != 0) {
+      map.at(2 * numbers[j - 1])++;
+    } else {
+      map.insert({2 * numbers[j - 1], 1});
+    }
 
 		i++;
 	}
@@ -225,20 +229,6 @@ int main() {
 	freopen("input.txt", "r", stdin);
 	freopen("output.txt", "w", stdout);
 	MathsLesson();
-
-//  std::priority_queue<int, std::vector<int>, std::greater<>> pq;
-//
-//  pq.push(1);
-//  pq.push(2);
-//  pq.push(2);
-//  pq.push(3);
-//  pq.push(4);
-//  pq.push(5);
-//
-//  for (int i = 0; i < 6; ++i) {
-//    std::cout << pq.top() << " ";
-//    pq.pop();
-//  }
 
 	return 0;
 }
