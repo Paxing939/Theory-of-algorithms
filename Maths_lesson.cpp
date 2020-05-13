@@ -49,19 +49,18 @@ std::string MathsLesson(const std::string &test) {
   ss >> n;
 
   std::vector<int> numbers(n);
-  std::map<int, int> map;
+  std::map<int, short> map;
 
   int i = 0, j = 0, sum = 0;
   ss >> sum;
   numbers[j] = sum / 2;
   out << numbers[j] << "\n";
   i++, j++;
-  while (i < n * n) {
-    if (j == n) {
-      break;
-    }
-
+  while (true) {
     ss >> sum;
+    if (sum % 2 == 1) {
+      continue;
+    }
     while (true) {
       if (!map.empty()) {
         if (map.begin()->first == sum) {
@@ -71,11 +70,7 @@ std::string MathsLesson(const std::string &test) {
             map.erase(map.begin());
           }
         } else {
-          if (sum > map.begin()->first) {
-            map.erase(map.begin());
-          } else {
-            break;
-          }
+          break;
         }
         ss >> sum;
       } else {
@@ -83,32 +78,45 @@ std::string MathsLesson(const std::string &test) {
       }
     }
 
-    numbers[j] = sum - numbers[0];
+    if (sum % 2 == 1) {
+      continue;
+    }
+    numbers[j] = sum / 2;
     out << numbers[j] << '\n';
     j++;
-    if (map.count(numbers[j - 1] + numbers[0]) != 0) {
-      map.at(numbers[j - 1] + numbers[0])++;
-    } else {
-      map.insert({numbers[j - 1] + numbers[0], 1});
+    if (j == n - 1) {
+      break;
     }
-    for (int k = 1; k < j; ++k) {
-      if (k != j - 1) {
+    if (numbers[j - 1] + numbers[0] % 2 == 0) {
+      if (map.count(numbers[j - 1] + numbers[0]) != 0) {
+        map.at(numbers[j - 1] + numbers[0])++;
+      } else {
+        map.insert({numbers[j - 1] + numbers[0], 1});
+      }
+    }
+    for (int k = 1; k < j - 1; ++k) {
+      if (numbers[j - 1] + numbers[k] % 2 == 0) {
         if (map.count(numbers[j - 1] + numbers[k]) != 0) {
           map.at(numbers[j - 1] + numbers[k]) += 2;
         } else {
           map.insert({numbers[j - 1] + numbers[k], 2});
         }
-      } else {
-        if (map.count(numbers[j - 1] + numbers[k]) != 0) {
-          map.at(numbers[j - 1] + numbers[k])++;
-        } else {
-          map.insert({numbers[j - 1] + numbers[k], 1});
-        }
       }
+    }
+    if (map.count(2 * numbers[j - 1]) != 0) {
+      map.at(2 * numbers[j - 1])++;
+    } else {
+      map.insert({2 * numbers[j - 1], 1});
     }
 
     i++;
   }
+
+  for (int k = i; k < n * n; ++k) {
+    ss >> sum;
+  }
+
+  out << sum / 2;
 
   return out.str();
 }
@@ -156,14 +164,14 @@ void MathsLesson() {
     if (j == n - 1) {
       break;
     }
-    if (numbers[j - 1] + numbers[0] % 2 == 0) {
-      if (map.count(numbers[j - 1] + numbers[0]) != 0) {
-        map.at(numbers[j - 1] + numbers[0])++;
-      } else {
-        map.insert({numbers[j - 1] + numbers[0], 1});
-      }
-    }
-    for (int k = 1; k < j - 1; ++k) {
+//    if (numbers[j - 1] + numbers[0] % 2 == 0) {
+//      if (map.count(numbers[j - 1] + numbers[0]) != 0) {
+//        map.at(numbers[j - 1] + numbers[0])++;
+//      } else {
+//        map.insert({numbers[j - 1] + numbers[0], 1});
+//      }
+//    }
+    for (int k = 0; k < j - 1; ++k) {
       if (numbers[j - 1] + numbers[k] % 2 == 0) {
         if (map.count(numbers[j - 1] + numbers[k]) != 0) {
           map.at(numbers[j - 1] + numbers[k]) += 2;
@@ -172,11 +180,11 @@ void MathsLesson() {
         }
       }
     }
-    if (map.count(2 * numbers[j - 1]) != 0) {
-      map.at(2 * numbers[j - 1])++;
-    } else {
-      map.insert({2 * numbers[j - 1], 1});
-    }
+//    if (map.count(2 * numbers[j - 1]) != 0) {.
+//      map.at(2 * numbers[j - 1])++;
+//    } else {
+//      map.insert({2 * numbers[j - 1], 1});
+//    }
 
     i++;
   }
@@ -225,7 +233,7 @@ void Generator() {
       std::cout << "Test #" << i + 1 << " failed!\n";
       std::ofstream writer("log.txt");
       writer << algorithm;
-      writer << "-------------------------\n";
+      writer << "\n-------------------------\n";
       writer << true_answer.str();
       writer << "-------------------------\n";
       writer << ss.str();
@@ -236,7 +244,7 @@ void Generator() {
 
 int main() {
 //	Generator();
-
+//
   freopen("input.txt", "r", stdin);
   freopen("output.txt", "w", stdout);
   std::cin.tie(nullptr);

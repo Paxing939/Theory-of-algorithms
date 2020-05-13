@@ -31,8 +31,12 @@ int main() {
     std::cin >> m >> p >> c;
 
     p--;
+    if (p == 6)
+    {
+      int df = 0;
+    }
     if (c == 'L') {
-      if (!(m > tree[p].left && m < tree[p].value)) {
+      if (!(m >= tree[p].left && m < tree[p].value)) {
         std::cout << "NO";
         return 0;
       }
