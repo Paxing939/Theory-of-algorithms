@@ -3,4 +3,4 @@ project(TA)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(TA Maths_lesson.cpp)
+add_executable(TA is_bst.cpp)
