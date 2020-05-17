@@ -6,7 +6,6 @@
 #include <algorithm>
 #include <map>
 #include <set>
-#include <queue>
 
 std::string MathsLesson(const std::string &test) {
   std::stringstream ss(test), out;
@@ -187,67 +186,77 @@ struct Index {
 };
 
 int n;
-std::priority_queue<Index> set;
+std::set<Index> set;
 std::vector<int> numbers, sum_amounts;
 
 bool operator<(const Index &lhs, const Index &rhs) {
-  return numbers[lhs.index] + numbers[sum_amounts[lhs.index]] >= numbers[rhs.index] + numbers[sum_amounts[rhs.index]];
+  int left = numbers[lhs.index] + numbers[sum_amounts[lhs.index]];
+  int right = numbers[rhs.index] + numbers[sum_amounts[rhs.index]];
+  if (numbers[sum_amounts[lhs.index]] == -1) {
+    left = numbers[lhs.index] + numbers[sum_amounts[lhs.index] - 1];
+  }
+  if (numbers[sum_amounts[rhs.index]] == -1) {
+    right = numbers[rhs.index] + numbers[sum_amounts[rhs.index] - 1];
+  }
+  return left >= right;
 }
 
 std::string MathsLesson2(const std::string &test) {
   std::stringstream ss(test), out;
 
-//  int n;
-//  ss >> n;
-//
-//  numbers.resize(n, -1);
-//  sum_amounts.resize(n, -1);
-//
-//  int i = 0, sum = 0, p = 0;
-//  ss >> sum;
-//
-//  if (n == 1) {
-//    out << sum;
-//    return std::to_string(sum);
-//  }
-//
-//  numbers[i] = sum / 2;
-//  sum_amounts[i] = 1;
-//  out << numbers[i] << "\n";
-//  set.insert({1});
-//  i++;
-//  while (i < n - 1) {
-//    ss >> sum;
-//
-////    if (CheckSums(numbers, sum_amounts, sum, i)) {
-//    if (sum_amounts[set.begin()->index] >= i ||
-//        numbers[set.begin()->index] + numbers[sum_amounts[set.begin()->index]] > sum || set.empty()) {
-//      numbers[i] = sum - numbers[0];
-//      out << numbers[i] << '\n';
-//      sum_amounts[0]++;
-//      sum_amounts[i] = 0;
-//      set.insert({i});
-//      i++;
-//    } else {
-////      for (int j = 0; j < i; ++j) {
-////        if (sum_amounts[j] < i) {
-////          if (numbers[j] + numbers[sum_amounts[j]] <= sum) {
-////            sum_amounts[j]++;
-////            break;
-////          }
-////        }
-////      }
-//      sum_amounts[set.begin()->index]++;
-//      set.erase(set.begin());
-//    }
-//    p++;
-//  }
-//
-//  for (int k = p; k < n * n; ++k) {
-//    ss >> sum;
-//  }
-//
-//  out << sum / 2;
+  int n;
+  ss >> n;
+
+  numbers.resize(n, -1);
+  sum_amounts.resize(n, -1);
+
+  int i = 0, sum = 0, p = 0;
+  ss >> sum;
+
+  if (n == 1) {
+    out << sum;
+    return std::to_string(sum);
+  }
+
+  numbers[i] = sum / 2;
+  sum_amounts[i] = 1;
+  out << numbers[i] << "\n";
+  set.insert({1});
+  i++;
+  while (i < n - 1) {
+    ss >> sum;
+
+//    if (CheckSums(numbers, sum_amounts, sum, i)) {
+    if (sum_amounts[set.begin()->index] >= i ||
+        numbers[set.begin()->index] + numbers[sum_amounts[set.begin()->index]] > sum || set.empty()) {
+      numbers[i] = sum - numbers[0];
+      out << numbers[i] << '\n';
+      sum_amounts[0]++;
+      sum_amounts[i] = 0;
+      set.insert({i});
+      i++;
+    } else {
+//      for (int j = 0; j < i; ++j) {
+//        if (sum_amounts[j] < i) {
+//          if (numbers[j] + numbers[sum_amounts[j]] <= sum) {
+//            sum_amounts[j]++;
+//            break;
+//          }
+//        }
+//      }
+      int min = set.begin()->index;
+      set.erase(set.begin());
+      sum_amounts[min]++;
+      set.insert({min});
+    }
+    p++;
+  }
+
+  for (int k = p; k < n * n; ++k) {
+    ss >> sum;
+  }
+
+  out << sum / 2;
 
   return out.str();
 }
@@ -315,25 +324,24 @@ void MathsLesson2() {
   numbers[i] = sum / 2;
   sum_amounts[i] = 1;
   std::cout << numbers[i] << "\n";
-  set.push({0});
+  set.insert({0});
   i++;
   while (i < n - 1) {
     std::cin >> sum;
 
-    if (sum_amounts[set.top().index] >= i ||
-        numbers[set.top().index] + numbers[sum_amounts[set.top().index]] > sum) {
+    if (sum_amounts[set.begin()->index] >= i ||
+        numbers[set.begin()->index] + numbers[sum_amounts[set.begin()->index]] > sum || set.empty()) {
       numbers[i] = sum - numbers[0];
       std::cout << numbers[i] << '\n';
       sum_amounts[0]++;
       sum_amounts[i] = 0;
-      set.push({i});
+      set.insert({i});
       i++;
     } else {
-      int min = set.top().index;
-//      set.erase(set.begin());
-set.pop();
+      int min = set.begin()->index;
+      set.erase(set.begin());
       sum_amounts[min]++;
-      set.push({min});
+      set.insert({min});
     }
     p++;
   }
