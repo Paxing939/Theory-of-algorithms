@@ -130,15 +130,69 @@ public:
         sum_amounts.clear();
     }
 
+	void MathsLesson3(int k, const std::vector<int> &sums) {
+		n = k;
+		std::multiset<Index> set, set2;
+
+		numbers.resize(n, -1);
+		for (int i = 0; i < n; i++) {
+			numbers[i] = 100 + 10 * i;
+		}
+		sum_amounts.resize(n, -1);
+
+		int i = 0, sum = 0, p = 0;
+		sum = sums[0];
+
+		if (n == 1) {
+			numbers[0] = sum;
+		}
+
+		numbers[i] = sum / 2;
+		sum_amounts[i] = 1;
+		set.insert({0});
+		i++;
+		while (i < n - 1) {
+			sum = sums[i];
+
+			if (sum_amounts[set.begin()->index] >= i ||
+			    numbers[set.begin()->index] + numbers[sum_amounts[set.begin()->index]] > sum || set.empty()) {
+				numbers[i] = sum - numbers[0];
+				sum_amounts[i] = 1;
+				set.insert({i});
+				i++;
+				while (!set2.empty()) {
+					int top = set2.begin()->index;
+					set2.erase(set2.begin());
+					set.insert({top});
+				}
+			} else {
+				int min = set.begin()->index;
+				set.erase(set.begin());
+				sum_amounts[min]++;
+				if (sum_amounts[min] < i) {
+					set.insert({min});
+				} else {
+					set2.insert({min});
+				}
+			}
+			p++;
+		}
+
+		numbers[numbers.size() - 1] = sums[sums.size() - 1] / 2;
+
+		numbers.clear();
+		sum_amounts.clear();
+	}
+
 private:
     int n{};
 };
 
 void Generator() {
-    int n = 1500, start_number = 1, max_number = 15;
+    int n = rand() % 1500 + 1, start_number = 1, max_number = 1'000'000;
     srand(time(0));
 
-    for (int i = 0; i < 1'000'000; ++i) {
+    for (int i = 0; i < 10'000'000; ++i) {
         std::stringstream true_answer;
 
         std::vector<int> numbers_to_test(n), sums(n * n);
@@ -188,13 +242,60 @@ void Generator() {
     }
 }
 
-int main() {
-//  Generator();
-    std::cin.tie(nullptr);
-    std::ios_base::sync_with_stdio(false);
-    MathsLesson maths_lesson;
-    maths_lesson.MathsLesson3();
+void Generator2() {
+	int n = rand() % 1500 + 1, start_number = 1, max_number = 1'000'000;
+	srand(time(0));
 
+	for (int i = 0; i < 10'000'000; ++i) {
+		std::vector<int> numbers_to_test(n), sums(n * n);
+		for (int j = 0; j < n; ++j) {
+			numbers_to_test[j] = start_number + rand() % max_number;
+		}
+
+		std::sort(numbers_to_test.begin(), numbers_to_test.end());
+
+		int ind = 0;
+		for (int j = 0; j < n; ++j) {
+			for (int k = 0; k < n; ++k) {
+				sums[ind++] = numbers_to_test[j] + numbers_to_test[k];
+			}
+		}
+		std::sort(sums.begin(), sums.end());
+
+		MathsLesson maths_lesson;
+		maths_lesson.MathsLesson3(n, sums);
+
+		for (int j = 0; j < n; ++j) {
+			if (numbers_to_test[i] != numbers[i]) {
+				std::cout << "Test #" << i + 1 << " failed!\n";
+				std::ofstream writer("log.txt");
+				for (auto &el : numbers) {
+					writer << el << '\n';
+				}
+				writer << "-------------------------\n";
+				for (auto &el : numbers_to_test) {
+					writer << el << '\n';
+				}
+				writer << "-------------------------\n";
+				writer << n << '\n';
+				for (auto &el : sums) {
+					writer << el << ' ';
+				}
+				writer.close();
+				return;
+			}
+		}
+		std::cout << "Test #" << i + 1 << " completed successfully!\n";
+	}
+}
+
+int main() {
+
+	int s = 0;
+
+  Generator2();
+//    MathsLesson maths_lesson;
+//    maths_lesson.MathsLesson3();
 
     return 0;
 }
