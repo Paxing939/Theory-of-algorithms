@@ -5,6 +5,7 @@
 #include <ctime>
 #include <algorithm>
 #include <set>
+#include <map>
 
 std::string ReadWholeFile(std::string filename) {
     std::ifstream ifs(filename);
@@ -22,12 +23,6 @@ std::vector<int> numbers, sum_amounts;
 bool operator<(const Index &lhs, const Index &rhs) {
     int left = numbers[lhs.index] + numbers[sum_amounts[lhs.index]];
     int right = numbers[rhs.index] + numbers[sum_amounts[rhs.index]];
-//    if (numbers[sum_amounts[lhs.index]] == -1) {
-//        left = numbers[lhs.index] + numbers[sum_amounts[lhs.index]] + 100;
-//    }
-//    if (numbers[sum_amounts[rhs.index]] == -1) {
-//        right = numbers[rhs.index] + numbers[sum_amounts[rhs.index]] + 100;
-//    }
 
     return left <= right;
 }
@@ -36,8 +31,8 @@ class MathsLesson {
 public:
 
     void MathsLesson3() {
-        std::ifstream reader("input.txt");
-        std::ofstream writer("output.txt");
+	    std::ifstream reader("input.txt");
+	    std::ofstream writer("output.txt");
 
         std::multiset<Index> set, set2;
 
@@ -53,7 +48,7 @@ public:
         reader >> sum;
 
         if (n == 1) {
-            writer << sum;
+            writer << sum / 2 << '\n';
             return;
         }
 
@@ -159,10 +154,10 @@ private:
 };
 
 void Generator() {
-    int n = rand() % 1500 + 1, start_number = 1, max_number = 1'000'000;
     srand(time(0));
 
     for (int i = 0; i < 10'000'000; ++i) {
+	    int n = rand() % 1500 + 1, start_number = 1, max_number = 1'000'000;
         std::stringstream true_answer;
 
         std::vector<int> numbers_to_test(n), sums(n * n);
@@ -215,7 +210,7 @@ void Generator() {
 void Generator2() {
     int n = rand() % 1500 + 1, start_number = 1, max_number = 1'000'000;
     srand(time(0));
-
+while (true)
     for (int i = 0; i < 10'000'000; ++i) {
         std::vector<int> numbers_to_test(n), sums(n * n);
         for (int j = 0; j < n; ++j) {
