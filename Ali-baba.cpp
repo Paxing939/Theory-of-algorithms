@@ -1,70 +1,47 @@
 #include <cmath>
 #include <algorithm>
-#include <iostream>
-#include <chrono>
 #include <fstream>
 
-using namespace std;
-
-int data1[20010][10010];
-int infinity = 100000000;
-
-int p[10010];
-int l[10010];
-
 int main() {
+    std::ifstream reader("input.txt");
+    std::ofstream writer("output.txt");
 
-    ifstream in("input.txt");
-    ofstream out("output.txt");
+    int64_t infinity = std::numeric_limits<int64_t>::max() - 10;
+    int64_t n;
+    reader >> n;
 
-    int size;
-    in >> size;
+    std::vector<int64_t> positions(n), time(n);
+    std::vector<std::vector<int64_t>> dp(n * 2, std::vector<int64_t>(n));
 
-    auto start = std::chrono::system_clock::now();
-
-    for (int i = 0; i < size; i++) {
-        int lifetime, position;
-        in >> position;
-        in >> lifetime;
-
-        l[i] = lifetime;
-        p[i] = position;
-
-        data1[i][i] = 0;
+    for (int64_t i = 0; i < n; ++i) {
+        reader >> positions[i] >> time[i];
     }
 
-    for (int k = 2; k < size * 2 + 2; k += 2) {
-        for (int i = 0; i < size - k / 2; i++) {
-            int first = data1[k - 2][i];
-            int second = data1[k - 1][i];
+    for (int64_t k = 2; k < n * 2 + 2; k += 2) {
+        for (int64_t i = 0; i < n - k / 2; ++i) {
+            int64_t first = dp[k - 2][i] + positions[i + k / 2] - positions[i + k / 2 - 1];
+            int64_t second = dp[k - 1][i] + positions[i + k / 2] - positions[i];
 
-            int wayFromFirst = first + (p[i + k / 2] - p[i + k / 2 - 1]);
-            int wayFromSecond = second + (p[k / 2 + i] - p[i]);
-
-            data1[k][i] = min(wayFromFirst, wayFromSecond);
-            if (data1[k][i] > l[i + k / 2]) {
-                data1[k][i] = infinity;
+            dp[k][i] = std::min(first, second);
+            if (dp[k][i] > time[i + k / 2]) {
+                dp[k][i] = infinity;
             }
 
-            first = data1[k - 2][i + 1];
-            second = data1[k - 1][i + 1];
+            first = dp[k - 2][i + 1] + positions[i + k / 2] - positions[i];
+            second = dp[k - 1][i + 1] + positions[i + 1] - positions[i];
 
-            wayFromFirst = first + p[i + k / 2] - p[i];
-            wayFromSecond = second + p[i + 1] - p[i];
-
-            data1[k + 1][i] = min(wayFromFirst, wayFromSecond);
-            if (data1[k + 1][i] > l[i]) {
-                data1[k + 1][i] = infinity;
+            dp[k + 1][i] = std::min(first, second);
+            if (dp[k + 1][i] > time[i]) {
+                dp[k + 1][i] = infinity;
             }
         }
     }
 
-    long result = min(data1[size * 2 - 2][0], data1[size * 2 - 1][0]);
-
+    int64_t result = std::min(dp[n * 2 - 2][0], dp[n * 2 - 1][0]);
     if (result != infinity) {
-        out << result;
+        writer << result;
     } else {
-        out << "No solution";
+        writer << "No solution";
     }
 
     return 0;
